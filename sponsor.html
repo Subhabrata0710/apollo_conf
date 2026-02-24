@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sponsor & Exhibit | ABC Children's Conclave 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Sponsorship and exhibition opportunities at ABC Children's Conclave 2026. Platinum, Gold, Silver stalls and more.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── BOOKING MODAL ── */
+        .booking-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 31, 58, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .booking-overlay.active {
+            display: flex;
+        }
+
+        .booking-modal {
+            background: var(--white);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(11, 31, 58, 0.4);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--navy-deep), var(--apollo-blue));
+            padding: 28px 32px 22px;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin: 0 0 4px;
+        }
+
+        .modal-header p {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: transparent;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--white);
+        }
+
+        .modal-body {
+            padding: 28px 32px;
+        }
+
+        .modal-section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--soft-gold);
+            margin: 22px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--cool-grey);
+        }
+
+        .modal-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .pkg-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pkg-check-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--cool-grey);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--light-grey);
+        }
+
+        .pkg-check-item:hover {
+            border-color: var(--soft-gold);
+            background: var(--white);
+        }
+
+        .pkg-check-item.selected {
+            border-color: var(--soft-gold);
+            background: #fffbf0;
+        }
+
+        .pkg-check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--soft-gold);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .pkg-check-label {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pkg-check-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navy-deep);
+            line-height: 1.3;
+        }
+
+        .pkg-check-price {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--apollo-blue);
+            white-space: nowrap;
+        }
+
+        .modal-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .modal-form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 13px 16px;
+            border-radius: 8px;
+            border: 2px solid var(--cool-grey);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+            background: var(--white);
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: var(--apollo-blue);
+        }
+
+        .modal-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .modal-footer {
+            padding: 20px 32px 28px;
+            background: var(--light-grey);
+            border-radius: 0 0 16px 16px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-footer .btn {
+            flex: 1;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .modal-note {
+            width: 100%;
+            font-size: 0.8rem;
+            color: var(--text-grey);
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 600px) {
+
+            .modal-body,
+            .modal-footer {
+                padding: 20px;
+            }
+
+            .modal-form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .pkg-check-label {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ABC CONCLAVE 2026</a>
+            <div class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navMenu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="committee.html">Committee</a>
+                <a href="speakers.html">Speakers</a>
+                <a href="register.html">Register</a>
+                <a href="login.html">Login</a>
+                <div class="nav-item">
+                    <a href="#">More ▾</a>
+                    <div class="dropdown">
+                        <a href="program.html">Program</a>
+                        <a href="venue.html">Venue</a>
+                        <a href="sponsor.html" class="active">Sponsor</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE BANNER -->
+    <div class="page-banner">
+        <h2>Sponsor &amp; Exhibit</h2>
+        <span>Industry Prospectus – ABC Children's Conclave 2026</span>
+    </div>
+
+    <!-- WHY PARTICIPATE -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Industry Opportunity</span>
+                <h2 class="section-title">Why Participate?</h2>
+            </div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">👁️</div>
+                    <h4>Maximum Visibility</h4>
+                    <p>Gain maximum visibility among 300+ practicing pediatricians, postgraduate trainees, and national
+                        &amp; international faculty.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">💡</div>
+                    <h4>Showcase Innovation</h4>
+                    <p>Showcase your latest innovations, products, and services to key decision-makers in pediatric
+                        healthcare.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🤝</div>
+                    <h4>Build Partnerships</h4>
+                    <p>Build meaningful partnerships with leading clinicians, academic experts, and opinion leaders.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🏆</div>
+                    <h4>Brand Presence</h4>
+                    <p>Strengthen your brand presence in the rapidly evolving landscape of pediatric medicine.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STALL PACKAGES -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Participation Details</span>
+                <h2 class="section-title">Stall &amp; Sponsorship Packages</h2>
+            </div>
+
+            <!-- Exhibition Stalls -->
+            <h3 class="sponsor-sub-heading">Exhibition Stalls</h3>
+            <div class="stall-cards">
+
+                <div class="stall-card platinum">
+                    <div class="stall-tier">Platinum Stall</div>
+                    <div class="stall-price">₹10,00,000 <span>+ GST</span></div>
+                    <ul class="stall-features">
+                        <li>6m × 2m booth space with essential accessories</li>
+                        <li>4 exhibitor badges</li>
+                        <li>Lunch provided on both event days</li>
+                        <li>Co-brand registration desk &amp; welcome branding with sponsor logo in pre-function area
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="stall-card gold">
+                    <div class="stall-badge">Popular</div>
+                    <div class="stall-tier">Gold Stall</div>
+                    <div class="stall-price">₹6,00,000 <span>+ GST</span></div>
+                    <ul class="stall-features">
+                        <li>4m × 2m booth space with essential accessories</li>
+                        <li>3 exhibitor badges</li>
+                        <li>Option to co-brand delegate registration kit bag</li>
+                        <li>Lunch provided on both event days</li>
+                    </ul>
+                </div>
+
+                <div class="stall-card silver">
+                    <div class="stall-tier">Silver Stall</div>
+                    <div class="stall-price">₹4,00,000 <span>+ GST</span></div>
+                    <ul class="stall-features">
+                        <li>3m × 2m booth space with essential accessories</li>
+                        <li>2 exhibitor badges</li>
+                        <li>Lunch provided on both event days</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Branding & Sponsorship Table -->
+            <h3 class="sponsor-sub-heading" style="margin-top:60px;">Branding &amp; Sponsorship Opportunities</h3>
+            <div class="sponsor-table-wrap">
+                <table class="sponsor-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>Details</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="pkg-name">Chair Branding<br><small>(in Scientific Halls per day)</small></td>
+                            <td>Branding on chairs inside the scientific halls</td>
+                            <td class="pkg-price">₹3,00,000<br><small>+ GST</small></td>
+                        </tr>
+                        <tr>
+                            <td class="pkg-name">Session Sponsorship</td>
+                            <td>Company branding displayed on the main LED screen before and after a 20–30 minute
+                                session</td>
+                            <td class="pkg-price">₹6,00,000<br><small>+ GST</small></td>
+                        </tr>
+                        <tr class="souvenir-header">
+                            <td colspan="3" class="souvenir-title">Souvenir Sponsorship</td>
+                        </tr>
+                        <tr>
+                            <td class="pkg-name">Color Page Ad<br><small>(inside/outside back cover)</small></td>
+                            <td>Full color page advertisement on inside or outside back cover of souvenir</td>
+                            <td class="pkg-price">₹1,00,000<br><small>+ GST</small></td>
+                        </tr>
+                        <tr>
+                            <td class="pkg-name">Color Full Page Ad</td>
+                            <td>Color full page advertisement in souvenir</td>
+                            <td class="pkg-price">₹50,000<br><small>+ GST</small></td>
+                        </tr>
+                        <tr>
+                            <td class="pkg-name">B/W Full Page Ad</td>
+                            <td>Black &amp; white full page advertisement in souvenir</td>
+                            <td class="pkg-price">₹40,000<br><small>+ GST</small></td>
+                        </tr>
+                        <tr>
+                            <td class="pkg-name">B/W Half Page Ad</td>
+                            <td>Black &amp; white half page advertisement in souvenir</td>
+                            <td class="pkg-price">₹25,000<br><small>+ GST</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SINGLE BOOK NOW BUTTON -->
+            <div style="text-align:center; margin-top:50px;">
+                <p style="font-size:1rem; color:var(--text-grey); margin-bottom:20px;">
+                    Ready to secure your space? Select the packages you want and we'll get your booking confirmed.
+                </p>
+                <button class="btn btn-primary" onclick="openBookingModal()"
+                    style="font-size:1.1rem; padding:18px 50px;">
+                    📋 Book Now – Select Packages
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section section-navy">
+        <div class="container" style="text-align:center;">
+            <div class="section-header">
+                <span class="section-label" style="color:var(--soft-gold);">Book Your Spot</span>
+                <h2 class="section-title" style="color:var(--white);">Sponsorship Contacts</h2>
+            </div>
+            <div class="secretariat-grid" style="margin-top:30px;">
+                <div class="secretariat-card">
+                    <h4>Dr Avishek Poddar</h4>
+                    <p>📞 9874585045</p>
+                </div>
+                <div class="secretariat-card">
+                    <h4>Dr Chandreyee Bhattacharya</h4>
+                    <p>📞 9830354181</p>
+                </div>
+                <div class="secretariat-card">
+                    <h4>Mr Rohit Mukherjee</h4>
+                    <p>📞 9830367423</p>
+                </div>
+            </div>
+            <p style="color:rgba(255,255,255,0.65); font-size:0.9rem; margin-top:24px;">
+                📧 apollobostonconclave2026@gmail.com
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <h5 class="footer-title">Conference Secretariat</h5>
+            <div class="footer-content">
+                <p><strong>Apollo Children's Hospital</strong></p>
+                <p>Apollo Multispeciality Hospital, Kolkata</p>
+                <div class="footer-divider"></div>
+                <p>📧 apollobostonconclave2026@gmail.com</p>
+                <p>📞 +91 9830367423 | +91 9830367422 | +91 7003200209</p>
+            </div>
+            <p class="footer-copyright">
+                <a href="https://www.roshnienterprise.com">© Website developed and copyright reserved to Roshni
+                    Enterprise Event Management</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ══════════════════════════════
+         BOOKING MODAL
+    ══════════════════════════════ -->
+    <div class="booking-overlay" id="bookingOverlay" onclick="handleOverlayClick(event)">
+        <div class="booking-modal" id="bookingModal">
+
+            <div class="modal-header">
+                <h3>📋 Sponsorship Booking Request</h3>
+                <p>ABC Children's Conclave 2026 &nbsp;|&nbsp; Hyatt Regency, Kolkata</p>
+                <button class="modal-close" onclick="closeBookingModal()">✕</button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- EXHIBITION STALLS -->
+                <div class="modal-section-title">Exhibition Stalls</div>
+                <div class="pkg-checklist">
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg"
+                            value="Platinum Stall – 6m×2m booth, 4 badges, lunch (both days), co-brand registration desk | ₹10,00,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🥇 Platinum Stall<br><small
+                                    style="font-weight:400;color:#6b7280;">6m×2m booth · 4 badges · Lunch · Co-brand
+                                    registration desk</small></span>
+                            <span class="pkg-check-price">₹10,00,000 + GST</span>
+                        </span>
+                    </label>
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg"
+                            value="Gold Stall – 4m×2m booth, 3 badges, delegate kit bag co-brand, lunch (both days) | ₹6,00,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🥈 Gold Stall<br><small
+                                    style="font-weight:400;color:#6b7280;">4m×2m booth · 3 badges · Delegate kit bag
+                                    co-brand · Lunch</small></span>
+                            <span class="pkg-check-price">₹6,00,000 + GST</span>
+                        </span>
+                    </label>
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg"
+                            value="Silver Stall – 3m×2m booth, 2 badges, lunch (both days) | ₹4,00,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🥉 Silver Stall<br><small
+                                    style="font-weight:400;color:#6b7280;">3m×2m booth · 2 badges · Lunch (both
+                                    days)</small></span>
+                            <span class="pkg-check-price">₹4,00,000 + GST</span>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- BRANDING -->
+                <div class="modal-section-title">Branding &amp; Sponsorship</div>
+                <div class="pkg-checklist">
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg"
+                            value="Chair Branding (Scientific Halls per day) | ₹3,00,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🪑 Chair Branding<br><small
+                                    style="font-weight:400;color:#6b7280;">In Scientific Halls, per day</small></span>
+                            <span class="pkg-check-price">₹3,00,000 + GST</span>
+                        </span>
+                    </label>
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg"
+                            value="Session Sponsorship – logo on LED screen before/after 20-30 min session | ₹6,00,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🎬 Session Sponsorship<br><small
+                                    style="font-weight:400;color:#6b7280;">Logo on main LED screen before &amp; after a
+                                    session</small></span>
+                            <span class="pkg-check-price">₹6,00,000 + GST</span>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- SOUVENIR -->
+                <div class="modal-section-title">Souvenir Advertisements</div>
+                <div class="pkg-checklist">
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg"
+                            value="Souvenir – Color Page Ad (inside/outside back cover) | ₹1,00,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🎨 Color Page Ad – Back Cover<br><small
+                                    style="font-weight:400;color:#6b7280;">Inside or outside back cover of
+                                    souvenir</small></span>
+                            <span class="pkg-check-price">₹1,00,000 + GST</span>
+                        </span>
+                    </label>
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg" value="Souvenir – Color Full Page Ad | ₹50,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">🎨 Color Full Page Ad</span>
+                            <span class="pkg-check-price">₹50,000 + GST</span>
+                        </span>
+                    </label>
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg" value="Souvenir – B/W Full Page Ad | ₹40,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">⬛ B/W Full Page Ad</span>
+                            <span class="pkg-check-price">₹40,000 + GST</span>
+                        </span>
+                    </label>
+                    <label class="pkg-check-item" onclick="toggleItem(this)">
+                        <input type="checkbox" name="pkg" value="Souvenir – B/W Half Page Ad | ₹25,000 + GST">
+                        <span class="pkg-check-label">
+                            <span class="pkg-check-name">⬛ B/W Half Page Ad</span>
+                            <span class="pkg-check-price">₹25,000 + GST</span>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- USER DETAILS -->
+                <div class="modal-section-title">Your Details</div>
+                <div class="modal-form-row">
+                    <input type="text" id="bookName" class="modal-input" placeholder="Your Full Name *" required>
+                    <input type="text" id="bookBrand" class="modal-input" placeholder="Company / Brand Name *" required>
+                </div>
+                <div class="modal-form-row single" style="margin-top:10px;">
+                    <input type="email" id="bookEmail" class="modal-input" placeholder="Your Email Address *" required>
+                </div>
+                <div class="modal-form-row single" style="margin-top:10px;">
+                    <input type="tel" id="bookPhone" class="modal-input" placeholder="Phone Number (optional)">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeBookingModal()"
+                    style="border-color:var(--navy-deep);color:var(--navy-deep);">Cancel</button>
+
+                <!-- OPTION A: Opens user's email app (always works, no setup needed) -->
+                <button class="btn btn-primary" id="mailtoBtn" onclick="submitBooking()"
+                    title="Opens your default email app">
+                    📬 Open in Email App
+                </button>
+
+                <!-- OPTION B: Sends directly via EmailJS (requires EmailJS account – see config below) -->
+                <button class="btn btn-gold" id="directSendBtn" onclick="submitBookingDirect()"
+                    title="Sends email in background without opening any app">
+                    🚀 Send Directly
+                </button>
+
+                <p class="modal-note">
+                    <strong>📬 Open in Email App</strong> — opens your mail client (Gmail / Outlook / any)
+                    pre-filled.<br>
+                    <strong>🚀 Send Directly</strong> — sends in the background; no app opens. Requires EmailJS setup
+                    (see code comment).
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+    <script>
+        // ═══════════════════════════════════════════════════════════
+        // EMAILJS CONFIG  (for the "Send Directly" button)
+        // ─────────────────────────────────────────────────────────
+        // Steps to activate direct sending:
+        //  1. Go to https://www.emailjs.com and create a free account
+        //  2. Add a Gmail service → copy your Service ID here
+        //  3. Create an Email Template → copy your Template ID here
+        //  4. Copy your Public Key from Account → API Keys
+        //  5. In your EmailJS template use these variables:
+        //       {{to_email}}  {{cc_email}}  {{subject}}
+        //       {{sender_name}}  {{sender_brand}}  {{sender_email}}
+        //       {{sender_phone}}  {{packages}}
+        // ═══════════════════════════════════════════════════════════
+        // const EMAILJS_PUBLIC_KEY = '0D7Psj_4erYsP60-A';   // TODO: replace
+        // const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';   // TODO: replace
+        // const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // TODO: replace
+
+        const TO_EMAIL = 'apollobostonconclave2026@gmail.com'; // primary recipient
+        const CC_EMAIL = 'mukherjeerohit301@gmail.com, sarnab355@gmail.com, adrija.kundu.1609@gmail.com, apahari@yahoo.com, avishek_pd@rediffmail.com, mailcb@gmail.com';                              // TODO: add CC email(s)
+
+        // Initialise EmailJS with public key
+        // emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        // ── BOOKING MODAL CONTROLS ──
+        function openBookingModal() {
+            document.getElementById('bookingOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleOverlayClick(e) {
+            if (e.target === document.getElementById('bookingOverlay')) closeBookingModal();
+        }
+
+        function toggleItem(label) {
+            const cb = label.querySelector('input[type="checkbox"]');
+            setTimeout(() => {
+                if (cb.checked) label.classList.add('selected');
+                else label.classList.remove('selected');
+            }, 0);
+        }
+
+        // ── SHARED: validate & collect form data ──
+        function collectFormData() {
+            const checked = document.querySelectorAll('input[name="pkg"]:checked');
+            if (checked.length === 0) {
+                alert('Please select at least one package before sending.');
+                return null;
+            }
+            const name = document.getElementById('bookName').value.trim();
+            const brand = document.getElementById('bookBrand').value.trim();
+            const email = document.getElementById('bookEmail').value.trim();
+            const phone = document.getElementById('bookPhone').value.trim();
+            if (!name || !brand || !email) {
+                alert('Please fill in your Name, Brand, and Email before sending.');
+                return null;
+            }
+            const pkgLines = [...checked].map((cb, i) => `${i + 1}. ${cb.value}`).join('\n');
+            return { name, brand, email, phone, pkgLines };
+        }
+
+        // ─────────────────────────────────────────
+        // OPTION A: Opens the user's email client
+        // (always works, no external service needed)
+        // ─────────────────────────────────────────
+        function submitBooking() {
+            const d = collectFormData();
+            if (!d) return;
+
+            const SUBJ = encodeURIComponent('ABC Conclave 2026 – Sponsorship Booking Request');
+            const BODY = encodeURIComponent(
+                `Dear ABC Conclave Organising Committee,
+
+I / We are interested in the following sponsorship / exhibition package(s) for the ABC Children's Conclave 2026:
+
+SELECTED PACKAGES:
+${d.pkgLines}
+
+ORGANISATION DETAILS:
+  Name         : ${d.name}
+  Brand/Company: ${d.brand}
+  Email        : ${d.email}${d.phone ? '\n  Phone        : ' + d.phone : ''}
+
+Please get in touch with us to confirm the booking and share further details.
+
+Warm regards,
+${d.name}
+${d.brand}
+${d.email}${d.phone ? '\n' + d.phone : ''}
+
+---
+This booking request was submitted via the ABC Conclave 2026 website.
+Event: 8–10 May 2026 | Hyatt Regency, Kolkata`);
+
+            window.location.href = `mailto:${TO_EMAIL}?cc=${CC_EMAIL}&subject=${SUBJ}&body=${BODY}`;
+        }
+
+        // ─────────────────────────────────────────────────────────────────
+        // OPTION B: Send Directly via Web3Forms (no Gmail connection needed)
+        // Web3Forms delivers the email from their own servers to your inbox.
+        // No OAuth, no Gmail authorization — just paste the access key above.
+        //
+        // ALTERNATIVE GAS METHOD (if you prefer to keep everything in-house):
+        //   Add a new action in your existing Google Apps Script:
+        //     case 'sponsorBooking':
+        //       MailApp.sendEmail({ to: data.to, subject: data.subject, body: data.body });
+        //       return ContentService.createTextOutput(JSON.stringify({success:true}));
+        //   Then replace the fetch URL below with API_URL from script.js.
+        // ─────────────────────────────────────────────────────────────────
+
+
+
+
+
+        async function submitBookingDirect() {
+
+            // 1️⃣ Collect form data
+            const d = collectFormData();
+            if (!d) return;
+
+            // 2️⃣ Change button to loading state
+            const btn = document.getElementById('directSendBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Sending...';
+
+            try {
+                const API_URL = 'https://script.google.com/macros/s/AKfycbzPVlUKGOXeDEzL2qmUwhh-XyPUdOulxLFcMt2cqxatJq25xc2yaH7BEdVLVUCsb--H_w/exec';
+
+                // 3️⃣ Send data to Google Apps Script
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        name: d.name,
+                        brand: d.brand,
+                        email: d.email,
+                        phone: d.phone || '',
+                        packages: d.pkgLines
+                    })
+                });
+
+                const result = await response.json();
+
+                // 4️⃣ If successful
+                if (result.success) {
+
+                    btn.textContent = '✅ Sent!';
+                    btn.style.background = '#16a34a';
+
+                    setTimeout(() => {
+
+                        closeBookingModal();
+
+                        btn.disabled = false;
+                        btn.textContent = '🚀 Send Directly';
+                        btn.style.background = '';
+
+                        // Clear checkboxes
+                        document.querySelectorAll('input[name="pkg"]').forEach(cb => {
+                            cb.checked = false;
+                        });
+
+                        // Clear input fields
+                        ['bookName', 'bookBrand', 'bookEmail', 'bookPhone']
+                            .forEach(id => document.getElementById(id).value = '');
+
+                    }, 2500);
+
+                } else {
+                    throw new Error(result.error || 'Server error');
+                }
+
+            } catch (error) {
+
+                console.error('Apps Script Error:', error);
+
+                btn.disabled = false;
+                btn.textContent = '🚀 Send Directly';
+
+                alert('Submission failed. Please try again.');
+            }
+        }
+
+        // async function submitBookingDirect() {
+        //     // if (W3F_ACCESS_KEY === 'c8c64d4f-7f8c-43e4-bc60-8f7c99957aa2') {
+        //     //     alert('⚠️ Web3Forms is not configured yet.\n\nSetup takes 2 minutes:\n1. Go to https://web3forms.com\n2. Enter the destination email address\n3. Click the verification link sent to that inbox\n4. Paste the Access Key into sponsor.html (W3F_ACCESS_KEY variable)\n\nNo Gmail login or account connection required.');
+        //     //     return;
+        //     // }
+
+        //     const d = collectFormData();
+        //     if (!d) return;
+
+        //     const btn = document.getElementById('directSendBtn');
+        //     btn.disabled = true;
+        //     btn.textContent = '⏳ Sending…';
+
+        //     const messageBody =
+        //         `ABC Conclave 2026 – Sponsorship Booking Request
+        //         ================================================
+
+        //         From : ${d.name}
+        //         Brand: ${d.brand}
+        //         Email: ${d.email}${d.phone ? '\nPhone: ' + d.phone : ''}
+
+        //         SELECTED PACKAGES:
+        //         ${d.pkgLines}
+
+        //         Event: 8–10 May 2026 | Hyatt Regency, Kolkata
+        //         Submitted via the ABC Conclave 2026 website.`;
+
+        //     try {
+        //         const res = await fetch('https://api.web3forms.com/submit', {
+        //             method: 'POST',
+        //             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        //             body: JSON.stringify({
+        //                 access_key: 'c8c64d4f-7f8c-43e4-bc60-8f7c99957aa2',
+        //                 subject: 'ABC Conclave 2026 – Sponsorship Booking Request',
+        //                 from_name: d.name,
+        //                 email: d.email,       // reply-to
+        //                 message: messageBody,
+        //                 // Web3Forms extras
+        //                 'botcheck': ''             // honeypot
+        //             })
+        //         });
+        //         const json = await res.json();
+
+        //         if (json.success) {
+        //             btn.textContent = '✅ Sent!';
+        //             btn.style.background = '#16a34a';
+        //             setTimeout(() => {
+        //                 closeBookingModal();
+        //                 btn.disabled = false;
+        //                 btn.textContent = '🚀 Send Directly';
+        //                 btn.style.background = '';
+        //                 // Reset form
+        //                 document.querySelectorAll('input[name="pkg"]').forEach(cb => {
+        //                     cb.checked = false;
+        //                     cb.closest('.pkg-check-item').classList.remove('selected');
+        //                 });
+        //                 ['bookName', 'bookBrand', 'bookEmail', 'bookPhone'].forEach(id => {
+        //                     document.getElementById(id).value = '';
+        //                 });
+        //             }, 2500);
+        //         } else {
+        //             throw new Error(json.message || 'Unknown error');
+        //         }
+        //     } catch (err) {
+        //         console.error('Web3Forms error:', err);
+        //         btn.disabled = false;
+        //         btn.textContent = '🚀 Send Directly';
+        //         alert('Failed to send directly.\nError: ' + err.message + '\n\nTry the "Open in Email App" button instead.');
+        //     }
+        // }
+
+        // Escape key closes modal
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeBookingModal();
+        });
+    </script>
+</body>
+
+</html>
