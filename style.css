@@ -293,7 +293,7 @@ a {
 }
 
 .hero-location {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: var(--soft-gold);
     font-weight: 500;
     margin-bottom: 50px;
@@ -374,13 +374,17 @@ a {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 /* =====================
    BUTTONS - PREMIUM
 ===================== */
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 16px 40px;
     border-radius: 6px;
     font-weight: 600;
@@ -391,6 +395,9 @@ a {
     transition: all 0.3s ease;
     border: none;
     font-family: 'Inter', sans-serif;
+    text-align: center;
+    min-width: 280px;
+    min-height: 80px;
 }
 
 .btn-primary {

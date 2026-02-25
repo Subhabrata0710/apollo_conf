@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize Countdown if on homepage
     if (document.getElementById('countdown')) {
-        initCountdown("March 8, 2026 00:00:00");
+        initCountdown("May 8, 2026 00:00:00");
     }
 });
 
