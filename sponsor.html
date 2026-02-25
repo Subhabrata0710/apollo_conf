@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sponsor & Exhibit | ABC Children's Conclave 2026</title>
+    <title>Sponsor & Exhibit | ABC Children’s Conclave</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Sponsorship and exhibition opportunities at ABC Children's Conclave 2026. Platinum, Gold, Silver stalls and more.">
+        content="Sponsorship and exhibition opportunities at ABC Children’s Conclave. Platinum, Gold, Silver stalls and more.">
     <link rel="stylesheet" href="style.css">
     <style>
         /* ── BOOKING MODAL ── */
@@ -250,7 +250,7 @@
     <!-- NAVIGATION -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">ABC CONCLAVE 2026</a>
+            <a href="index.html" class="nav-logo">ABC CHILDREN’S CONCLAVE</a>
             <div class="burger" id="burger">
                 <span></span>
                 <span></span>
@@ -260,7 +260,7 @@
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="committee.html">Committee</a>
-                <a href="speakers.html">Speakers</a>
+                <!-- <a href="speakers.html">Speakers</a> -->
                 <a href="register.html">Register</a>
                 <a href="login.html">Login</a>
                 <div class="nav-item">
@@ -279,7 +279,7 @@
     <!-- PAGE BANNER -->
     <div class="page-banner">
         <h2>Sponsor &amp; Exhibit</h2>
-        <span>Industry Prospectus – ABC Children's Conclave 2026</span>
+        <span>Industry Prospectus – ABC Children’s Conclave</span>
     </div>
 
     <!-- WHY PARTICIPATE -->
@@ -383,8 +383,12 @@
                         </tr>
                         <tr>
                             <td class="pkg-name">Session Sponsorship</td>
-                            <td>Company branding displayed on the main LED screen before and after a 20–30 minute
-                                session</td>
+                            <td>
+                                <li>Company branding displayed on the main LED screen before and after a 20–30 minute
+                                    session</li>
+                                <li>1 Standee</li>
+                                <li>2 exhibitor badges</li>
+                            </td>
                             <td class="pkg-price">₹6,00,000<br><small>+ GST</small></td>
                         </tr>
                         <tr class="souvenir-header">
@@ -459,7 +463,7 @@
         <div class="footer-container">
             <h5 class="footer-title">Conference Secretariat</h5>
             <div class="footer-content">
-                <p><strong>Apollo Children's Hospital</strong></p>
+                <p><strong>Apollo Children's</strong></p>
                 <p>Apollo Multispeciality Hospital, Kolkata</p>
                 <div class="footer-divider"></div>
                 <p>📧 apollobostonconclave2026@gmail.com</p>
@@ -480,7 +484,7 @@
 
             <div class="modal-header">
                 <h3>📋 Sponsorship Booking Request</h3>
-                <p>ABC Children's Conclave 2026 &nbsp;|&nbsp; Hyatt Regency, Kolkata</p>
+                <p>ABC Children’s Conclave &nbsp;|&nbsp; Hyatt Regency, Kolkata</p>
                 <button class="modal-close" onclick="closeBookingModal()">✕</button>
             </div>
 
@@ -698,11 +702,11 @@
             const d = collectFormData();
             if (!d) return;
 
-            const SUBJ = encodeURIComponent('ABC Conclave 2026 – Sponsorship Booking Request');
+            const SUBJ = encodeURIComponent('ABC Children’s Conclave – Sponsorship Booking Request');
             const BODY = encodeURIComponent(
                 `Dear ABC Conclave Organising Committee,
 
-I / We are interested in the following sponsorship / exhibition package(s) for the ABC Children's Conclave 2026:
+I / We are interested in the following sponsorship / exhibition package(s) for the ABC Children’s Conclave:
 
 SELECTED PACKAGES:
 ${d.pkgLines}
@@ -720,7 +724,7 @@ ${d.brand}
 ${d.email}${d.phone ? '\n' + d.phone : ''}
 
 ---
-This booking request was submitted via the ABC Conclave 2026 website.
+This booking request was submitted via the ABC Children’s Conclave website.
 Event: 8–10 May 2026 | Hyatt Regency, Kolkata`);
 
             window.location.href = `mailto:${TO_EMAIL}?cc=${CC_EMAIL}&subject=${SUBJ}&body=${BODY}`;
@@ -829,7 +833,7 @@ Event: 8–10 May 2026 | Hyatt Regency, Kolkata`);
         //     btn.textContent = '⏳ Sending…';
 
         //     const messageBody =
-        //         `ABC Conclave 2026 – Sponsorship Booking Request
+        //         `ABC Children’s Conclave – Sponsorship Booking Request
         //         ================================================
 
         //         From : ${d.name}
@@ -840,7 +844,7 @@ Event: 8–10 May 2026 | Hyatt Regency, Kolkata`);
         //         ${d.pkgLines}
 
         //         Event: 8–10 May 2026 | Hyatt Regency, Kolkata
-        //         Submitted via the ABC Conclave 2026 website.`;
+        //         Submitted via the ABC Children’s Conclave website.`;
 
         //     try {
         //         const res = await fetch('https://api.web3forms.com/submit', {
@@ -848,7 +852,7 @@ Event: 8–10 May 2026 | Hyatt Regency, Kolkata`);
         //             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         //             body: JSON.stringify({
         //                 access_key: 'c8c64d4f-7f8c-43e4-bc60-8f7c99957aa2',
-        //                 subject: 'ABC Conclave 2026 – Sponsorship Booking Request',
+        //                 subject: 'ABC Children’s Conclave – Sponsorship Booking Request',
         //                 from_name: d.name,
         //                 email: d.email,       // reply-to
         //                 message: messageBody,

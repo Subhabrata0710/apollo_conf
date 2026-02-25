@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Register | ABC Children's Conclave 2026</title>
+    <title>Register | ABC Children’s Conclave</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 
@@ -16,7 +16,7 @@
     <!-- LUXURY NAVIGATION -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">ABC CONCLAVE 2026</a>
+            <a href="index.html" class="nav-logo">ABC CHILDREN’S CONCLAVE</a>
 
             <div class="burger" id="burger">
                 <span></span>
@@ -28,7 +28,7 @@
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="committee.html">Committee</a>
-                <a href="speakers.html">Speakers</a>
+                <!-- <a href="speakers.html">Speakers</a> -->
                 <a href="register.html" class="active">Register</a>
                 <a href="login.html">Login</a>
                 <div class="nav-item">
@@ -57,106 +57,151 @@
     <section class="register-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Choose Your Plan</span>
-                <h2 class="section-title">Registration Categories</h2>
+                <span class="section-label">Investment in Excellence</span>
+                <h2 class="section-title">Registration Fees</h2>
             </div>
 
-            <div class="pricing-grid">
-                <!-- Early Bird Pricing -->
-                <div class="pricing-card" data-testid="pricing-early-bird">
-                    <span class="pricing-label">Early Bird</span>
-                    <div class="pricing-amount">₹2,500</div>
-                    <p class="pricing-period">Valid until March 31, 2026</p>
-                    <ul class="pricing-features">
-                        <li>All Scientific Sessions</li>
-                        <li>Conference Materials</li>
-                        <li>Lunch & Refreshments</li>
-                        <li>Certificate of Attendance</li>
-                        <li>Access to Poster Sessions</li>
-                    </ul>
-                    <!-- <a href="#register-form" class="btn btn-gold w-100">Select Plan</a> -->
-                </div>
-
-                <!-- Standard Pricing - Featured -->
-                <div class="pricing-card featured" data-testid="pricing-standard">
-                    <span class="pricing-label">Standard</span>
-                    <div class="pricing-amount">₹3,500</div>
-                    <p class="pricing-period">Most Popular</p>
-                    <ul class="pricing-features">
-                        <li>All Scientific Sessions</li>
-                        <li>Conference Materials</li>
-                        <li>Lunch & Refreshments</li>
-                        <li>Certificate of Attendance</li>
-                        <li>Access to Poster Sessions</li>
-                        <li>Workshop Access (1 Session)</li>
-                    </ul>
-                    <!-- <a href="#register-form" class="btn btn-gold w-100">Select Plan</a> -->
-                </div>
-
-                <!-- Premium Pricing -->
-                <div class="pricing-card" data-testid="pricing-premium">
-                    <span class="pricing-label">Premium</span>
-                    <div class="pricing-amount">₹5,000</div>
-                    <p class="pricing-period">Enhanced Experience</p>
-                    <ul class="pricing-features">
-                        <li>All Scientific Sessions</li>
-                        <li>Conference Materials</li>
-                        <li>Lunch & Refreshments</li>
-                        <li>Certificate of Attendance</li>
-                        <li>Access to Poster Sessions</li>
-                        <li>All Workshop Access</li>
-                        <li>Welcome Dinner Invitation</li>
-                        <li>Conference Proceedings Book</li>
-                    </ul>
-                    <!-- <a href="#register-form" class="btn btn-gold w-100">Select Plan</a> -->
-                </div>
-
-                <!-- VIP Pricing -->
-                <div class="pricing-card" data-testid="pricing-vip">
-                    <span class="pricing-label">VIP Delegate</span>
-                    <div class="pricing-amount">₹8,000</div>
-                    <p class="pricing-period">Complete Package</p>
-                    <ul class="pricing-features">
-                        <li>All Scientific Sessions</li>
-                        <li>Conference Materials</li>
-                        <li>Lunch & Refreshments</li>
-                        <li>Certificate of Attendance</li>
-                        <li>Access to Poster Sessions</li>
-                        <li>All Workshop Access</li>
-                        <li>Welcome Dinner Invitation</li>
-                        <li>Conference Proceedings Book</li>
-                        <li>VIP Networking Events</li>
-                        <li>Priority Seating</li>
-                        <li>One-on-One Speaker Sessions</li>
-                    </ul>
-                    <!-- <a href="#register-form" class="btn btn-gold w-100">Select Plan</a> -->
+            <!-- REGISTRATION FEES TABLE -->
+            <div class="pricing-table-container">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Category & Date</th>
+                            <th>Delegate Type</th>
+                            <th>Conference Fee</th>
+                            <th>CME Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Tier 1 -->
+                        <tr class="tier-high">
+                            <td>Till 14th March 2026</td>
+                            <td>For All</td>
+                            <td>₹2,000</td>
+                            <td>₹1,000</td>
+                        </tr>
+                        <!-- Tier 2 -->
+                        <tr>
+                            <td rowspan="2">15th March – 14th April</td>
+                            <td>Standard</td>
+                            <td>₹3,000</td>
+                            <td>₹1,000</td>
+                        </tr>
+                        <tr>
+                            <td>PGTs</td>
+                            <td>₹2,000</td>
+                            <td>₹1,000</td>
+                        </tr>
+                        <!-- Tier 3 -->
+                        <tr>
+                            <td rowspan="2">15th April – 5th May</td>
+                            <td>Standard</td>
+                            <td>₹4,000</td>
+                            <td>₹1,000</td>
+                        </tr>
+                        <tr>
+                            <td>PGTs</td>
+                            <td>₹3,000</td>
+                            <td>₹1,000</td>
+                        </tr>
+                        <!-- Spot -->
+                        <tr class="tier-spot">
+                            <td rowspan="2">6th May – Spot Reg</td>
+                            <td>Standard</td>
+                            <td>₹6,000</td>
+                            <td>₹2,000</td>
+                        </tr>
+                        <tr class="tier-spot">
+                            <td>PGTs</td>
+                            <td>₹5,000</td>
+                            <td>₹2,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pricing-notes">
+                    <p>• Conference Registration is <strong>mandatory</strong> for CME Registration.</p>
+                    <p>• Only Conference Registration is permitted.</p>
+                    <p>• Prices exclude mandatory GST if applicable.</p>
                 </div>
             </div>
 
             <!-- REGISTRATION FORM -->
             <div class="register-card" id="register-form">
-                <h3 class="text-center">Complete Your Registration</h3>
+                <h3 class="text-center">Delegate Registration Form</h3>
+                <p class="form-desc text-center">Please fill in your details to proceed to payment.</p>
 
-                <input id="reg-name" class="form-control" placeholder="Full Name" data-testid="reg-name">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name *</label>
+                        <input id="reg-name" class="form-control" placeholder="Dr. John Doe">
+                    </div>
+                </div>
 
-                <input id="reg-email" type="email" class="form-control" placeholder="Email Address"
-                    data-testid="reg-email">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="reg-email">Email Address *</label>
+                        <input id="reg-email" type="email" class="form-control" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-phone">Phone Number *</label>
+                        <input id="reg-phone" class="form-control" placeholder="+91 98765 43210">
+                    </div>
+                </div>
 
-                <input id="reg-phone" class="form-control" placeholder="Phone Number" data-testid="reg-phone">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="reg-institution">Institution / Hospital *</label>
+                        <input id="reg-institution" class="form-control" placeholder="ABC Medical College">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-city">City *</label>
+                        <input id="reg-city" class="form-control" placeholder="Kolkata">
+                    </div>
+                </div>
 
-                <input id="reg-password" type="password" class="form-control" placeholder="Create Password"
-                    data-testid="reg-password">
+                <div class="form-group">
+                    <label for="reg-password">Create Password *</label>
+                    <input id="reg-password" type="password" class="form-control" placeholder="••••••••">
+                </div>
 
-                <select id="reg-category" class="form-select" data-testid="reg-category">
-                    <option value="">Select Registration Category</option>
-                    <option value="2500">Early Bird - ₹2,500</option>
-                    <option value="3500">Standard - ₹3,500</option>
-                    <option value="5000">Premium - ₹5,000</option>
-                    <option value="8000">VIP Delegate - ₹8,000</option>
-                </select>
+                <div class="form-divider"></div>
 
-                <button class="btn btn-primary w-100" onclick="payAndRegister()" data-testid="pay-register-btn">
-                    Proceed to Payment
+                <div class="form-group">
+                    <label for="reg-delegate-type">Delegate Category *</label>
+                    <select id="reg-delegate-type" class="form-select" onchange="updateTotalAmount()">
+                        <option value="Standard">General Delegate</option>
+                        <option value="PGT">Post Graduate Trainee (PGT)</option>
+                    </select>
+                </div>
+
+                <div class="form-options">
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="reg-conf" checked disabled>
+                        <span>Conference Registration (Mandatory)</span>
+                    </label>
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="reg-cme" onchange="toggleCmeChoice()">
+                        <span>Add CME Registration</span>
+                    </label>
+                </div>
+
+                <div id="cme-choice-group" class="form-group"
+                    style="display: none; margin-top: 15px; padding-left: 28px;">
+                    <label for="reg-cme-choice">Select CME Session *</label>
+                    <select id="reg-cme-choice" class="form-select">
+                        <option value="">-- Choose One CME --</option>
+                        <option value="CME 1">CME Session 1: Critical Care Excellence</option>
+                        <option value="CME 2">CME Session 2: Advanced Neonatology</option>
+                    </select>
+                </div>
+
+                <div class="total-bar">
+                    <div class="total-label">Total Amount Payable:</div>
+                    <div class="total-value" id="total-display">₹2,000</div>
+                </div>
+
+                <button class="btn btn-primary w-100" onclick="payAndRegister()" style="padding: 18px;">
+                    Proceed to Registration
                 </button>
 
                 <p class="text-center" style="margin-top: 20px; font-size: 0.9rem; color: var(--text-grey);">
@@ -167,13 +212,185 @@
         </div>
     </section>
 
+    <style>
+        .pricing-table-container {
+            margin: 40px auto 60px;
+            overflow-x: auto;
+            background: var(--white);
+            padding: 2px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(11, 31, 58, 0.08);
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-table th {
+            background: var(--navy-deep);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--cool-grey);
+            color: var(--text-grey);
+        }
+
+        .tier-high td {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--navy-deep);
+        }
+
+        .tier-spot td {
+            background: #fffcf0;
+        }
+
+        .pricing-notes {
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 0 0 12px 12px;
+            font-size: 0.85rem;
+            color: var(--text-grey);
+        }
+
+        .form-group-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group-row .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--navy-deep);
+            font-size: 0.9rem;
+        }
+
+        .form-divider {
+            height: 1px;
+            background: var(--cool-grey);
+            margin: 25px 0;
+        }
+
+        .form-options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .total-bar {
+            background: var(--light-grey);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            border-left: 4px solid var(--soft-gold);
+        }
+
+        .total-label {
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .total-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--apollo-blue);
+        }
+
+        @media (max-width: 768px) {
+            .form-group-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .pricing-table {
+                font-size: 0.85rem;
+            }
+
+            .pricing-table th,
+            .pricing-table td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleCmeChoice() {
+            const hasCme = document.getElementById('reg-cme').checked;
+            document.getElementById('cme-choice-group').style.display = hasCme ? 'block' : 'none';
+            updateTotalAmount();
+        }
+
+        function updateTotalAmount() {
+            const delType = document.getElementById('reg-delegate-type').value;
+            const hasCme = document.getElementById('reg-cme').checked;
+
+            // Current Date logic
+            const now = new Date();
+            let confPrice = 2000;
+            let cmePrice = 1000;
+
+            if (now <= new Date('2026-03-14')) {
+                confPrice = 2000;
+                cmePrice = 1000;
+            } else if (now <= new Date('2026-04-14')) {
+                confPrice = (delType === 'PGT') ? 2000 : 3000;
+                cmePrice = 1000;
+            } else if (now <= new Date('2026-05-05')) {
+                confPrice = (delType === 'PGT') ? 3000 : 4000;
+                cmePrice = 1000;
+            } else {
+                confPrice = (delType === 'PGT') ? 5000 : 6000;
+                cmePrice = 2000;
+            }
+
+            let total = confPrice;
+            if (hasCme) total += cmePrice;
+
+            document.getElementById('total-display').textContent = '₹' + total.toLocaleString();
+        }
+
+        // Initialize total on load
+        window.addEventListener('DOMContentLoaded', updateTotalAmount);
+    </script>
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
             <h5 class="footer-title">Conference Secretariat</h5>
 
             <div class="footer-content">
-                <p><strong>Apollo Children's Hospital</strong></p>
+                <p><strong>Apollo Children's</strong></p>
                 <p>Apollo Multispeciality Hospital, Kolkata</p>
                 <div class="footer-divider"></div>
                 <p>📧 apollobostonconclave2026@gmail.com</p>

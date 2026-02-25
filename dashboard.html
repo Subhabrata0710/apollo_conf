@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard | ABC Children's Conclave 2026</title>
+    <title>Dashboard | ABC Children’s Conclave</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,18 +13,18 @@
     <!-- LUXURY NAVIGATION -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">ABC CONCLAVE 2026</a>
+            <a href="index.html" class="nav-logo">ABC CHILDREN’S CONCLAVE</a>
 
             <div class="burger" id="burger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            
+
             <div class="nav-links" id="navMenu">
                 <a href="index.html">Home</a>
                 <a href="about.html" class="active">About</a>
-                <a href="speakers.html">Speakers</a>
+                <!-- <a href="speakers.html">Speakers</a> -->
                 <a href="register.html">Register</a>
 
                 <div class="nav-item">
@@ -95,18 +96,19 @@
                         <h3>📤 Upload Documents</h3>
                         <p>Upload your research papers, abstracts, or presentations</p>
                     </div>
-                    
+
                     <div class="upload-area" id="upload-area">
                         <div class="upload-icon">📁</div>
                         <p><strong>Click to upload</strong> or drag and drop</p>
                         <p class="text-muted">PDF, DOC, PPT, Images (Max 10MB)</p>
-                        <input type="file" id="file-upload" class="file-input" accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png">
+                        <input type="file" id="file-upload" class="file-input"
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png">
                     </div>
-                    
+
                     <button class="btn btn-primary w-100" onclick="uploadFile()" data-testid="upload-btn">
                         Upload File
                     </button>
-                    
+
                     <p id="upload-status" class="upload-status"></p>
                 </div>
 
@@ -116,7 +118,7 @@
                         <h3>✅ Registration Details</h3>
                         <p>Your conference registration information</p>
                     </div>
-                    
+
                     <div class="info-list">
                         <div class="info-item">
                             <span class="info-label">Registration ID:</span>
@@ -135,7 +137,7 @@
                             <span class="info-value" id="reg-amount">₹3,500</span>
                         </div>
                     </div>
-                    
+
                     <button class="btn btn-outline w-100" style="margin-top: 20px;">
                         Download Receipt
                     </button>
@@ -148,7 +150,7 @@
                     <h3>📂 Your Uploaded Files</h3>
                     <p>Manage your documents and presentations</p>
                 </div>
-                
+
                 <div id="file-list" class="file-list">
                     <div class="empty-state">
                         <div class="empty-icon">📭</div>
@@ -167,12 +169,12 @@
                     <a href="index.html#program" class="btn btn-gold">View Program</a>
                 </div>
 
-                <div class="info-card">
+                <!-- <div class="info-card">
                     <div class="info-card-icon">👥</div>
                     <h4>Speaker Panel</h4>
                     <p>Meet our distinguished international faculty</p>
                     <a href="index.html#speakers" class="btn btn-gold">View Speakers</a>
-                </div>
+                </div> -->
 
                 <div class="info-card">
                     <div class="info-card-icon">🏨</div>
@@ -182,16 +184,16 @@
                 </div>
             </div>
         </div>
-        
+
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
             <h5 class="footer-title">Conference Secretariat</h5>
-            
+
             <div class="footer-content">
-                <p><strong>Apollo Children's Hospital</strong></p>
+                <p><strong>Apollo Children's</strong></p>
                 <p>Apollo Multispeciality Hospital, Kolkata</p>
                 <div class="footer-divider"></div>
                 <p>📧 apollobostonconclave2026@gmail.com</p>
@@ -199,7 +201,8 @@
             </div>
 
             <p class="footer-copyright">
-                <a href="https://www.roshnienterprise.com">© Website developed and copyright reserved to Roshni Enterprise Event Management</a>
+                <a href="https://www.roshnienterprise.com">© Website developed and copyright reserved to Roshni
+                    Enterprise Event Management</a>
             </p>
         </div>
     </footer>
@@ -213,7 +216,7 @@
     <script src="script.js"></script>
     <script>
         // Check if user is logged in
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function () {
             checkAuth();
         });
 
@@ -238,22 +241,23 @@
             e.preventDefault();
             uploadArea.style.borderColor = 'var(--cool-grey)';
             uploadArea.style.backgroundColor = 'transparent';
-            
+
             const files = e.dataTransfer.files;
             if (files.length > 0) {
                 fileInput.files = files;
-                document.getElementById('upload-status').innerHTML = 
+                document.getElementById('upload-status').innerHTML =
                     `<span style="color: var(--apollo-blue);">✓ ${files[0].name} selected</span>`;
             }
         });
 
-        fileInput.addEventListener('change', function() {
+        fileInput.addEventListener('change', function () {
             if (this.files.length > 0) {
-                document.getElementById('upload-status').innerHTML = 
+                document.getElementById('upload-status').innerHTML =
                     `<span style="color: var(--apollo-blue);">✓ ${this.files[0].name} selected</span>`;
             }
         });
     </script>
 
 </body>
+
 </html>

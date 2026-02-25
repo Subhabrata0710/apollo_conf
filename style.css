@@ -212,7 +212,7 @@ a {
    TOP INFO BAR
 ===================== */
 .top-bar {
-    background: var(--soft-gold);
+    background: #ffaf00;
     color: var(--navy-deep);
     padding: 12px 20px;
     text-align: center;
@@ -300,6 +300,76 @@ a {
     letter-spacing: 1px;
 }
 
+/* Countdown Timer */
+.countdown-container {
+    margin: 30px 0;
+    max-width: 500px;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--soft-gold);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 15px;
+}
+
+.time-block {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 10px;
+    border-radius: 8px;
+    min-width: 80px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.time-block:hover {
+    transform: translateY(-5px);
+    border-color: var(--soft-gold);
+}
+
+.time-block span {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffaf00;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.time-block label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .countdown-timer {
+        gap: 10px;
+    }
+
+    .time-block {
+        min-width: 65px;
+        padding: 10px 5px;
+    }
+
+    .time-block span {
+        font-size: 1.4rem;
+    }
+}
+
 .hero-buttons {
     display: flex;
     gap: 20px;
@@ -324,15 +394,15 @@ a {
 }
 
 .btn-primary {
-    background: var(--navy-deep);
-    color: var(--white);
-    box-shadow: 0 4px 14px rgba(11, 31, 58, 0.4);
+    background: #ffaf00;
+    color: var(--navy-deep);
+    box-shadow: 0 4px 14px rgba(255, 175, 0, 0.4);
 }
 
 .btn-primary:hover {
-    background: var(--apollo-blue);
+    background: #e69d00;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(11, 31, 58, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 175, 0, 0.5);
 }
 
 .btn-outline {
@@ -1631,8 +1701,8 @@ a {
 }
 
 .logo-icon {
-    width: 64px;
-    height: 64px;
+    width: 110px;
+    height: 110px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -1782,31 +1852,54 @@ a {
 /* =====================
    COMMITTEE PAGE
 ===================== */
+.committee-page-title {
+    background: var(--apollo-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 15px;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    border-radius: 4px;
+}
+
+.wbap-header {
+    color: #cc3333;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 40px 0 30px;
+    text-transform: uppercase;
+}
+
 .committee-tier {
     margin-bottom: 60px;
 }
 
 .tier-label {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 8px 24px;
+    padding: 10px 30px;
     display: inline-block;
-    border-radius: 30px;
+    border-radius: 4px;
     background: var(--navy-deep);
     color: var(--white);
-    margin-bottom: 28px;
+    margin-bottom: 30px;
     display: block;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .gold-label {
     background: var(--soft-gold);
-    color: var(--navy-deep);
+    color: var(--white);
 }
 
 .teal-label {
@@ -1820,68 +1913,99 @@ a {
 }
 
 .committee-center-card {
-    max-width: 360px;
+    max-width: 400px;
     margin: 0 auto;
     background: var(--white);
     border-radius: 12px;
-    padding: 30px 24px;
+    padding: 30px;
     text-align: center;
     box-shadow: var(--shadow-medium);
-    border: 2px solid var(--cool-grey);
+    border-top: 4px solid var(--apollo-blue);
     transition: all 0.3s ease;
 }
 
 .committee-center-card.highlight-card {
-    border-color: var(--soft-gold);
-    box-shadow: 0 8px 32px rgba(200, 169, 81, 0.2);
+    border-top-color: var(--soft-gold);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .committee-grid {
     display: grid;
-    gap: 20px;
+    gap: 25px;
 }
 
 .committee-grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .committee-grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .committee-grid-4 {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* WBAP Column Layout */
+.wbap-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.wbap-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .committee-card {
     background: var(--white);
-    border-radius: 10px;
-    padding: 22px 20px;
-    text-align: center;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
     box-shadow: var(--shadow-soft);
-    border: 2px solid transparent;
+    border-left: 4px solid var(--cool-grey);
     transition: all 0.3s ease;
 }
 
 .committee-card:hover,
 .committee-center-card:hover {
-    border-color: var(--soft-gold);
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-left-color: var(--apollo-blue);
 }
 
 .committee-name {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--navy-deep);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .committee-role {
     font-size: 0.85rem;
     color: var(--text-grey);
-    line-height: 1.5;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+@media (max-width: 992px) {
+    .wbap-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .wbap-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .wbap-header {
+        font-size: 1.4rem;
+    }
 }
 
 /* =====================
@@ -2152,8 +2276,8 @@ a {
    LOGO PLACEHOLDERS
 ===================== */
 .logo-placeholder {
-    width: 80px;
-    height: 80px;
+    width: 110px;
+    height: 110px;
     border-radius: 12px;
     overflow: hidden;
     display: flex;

@@ -1,4 +1,4 @@
-// ABC Children's Conclave 2026 - Complete Script
+// ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
 const API_URL = "https://script.google.com/macros/s/AKfycbyyS2yXUN91qYntYeWCVAD0xc_5WOfsUZrX_XBXZ1TzeuHepIW5yqJXLrYiWBE7kXFL/exec";
 const RZP_KEY = "rzp_test_SHEpE6CgtOC7U5";
@@ -46,6 +46,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         }
+    }
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith('#') && href.length > 1) {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+
+    // Program tabs functionality (if on page)
+    const tabs = document.querySelectorAll('.tab-btn');
+    if (tabs.length > 0) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                // Tab content switching logic can be added here
+            });
+        });
+    }
+
+    // Initialize Countdown if on homepage
+    if (document.getElementById('countdown')) {
+        initCountdown("March 8, 2026 00:00:00");
     }
 });
 
@@ -146,7 +177,7 @@ function generateRegId(email) {
 //         "key": RZP_KEY,
 //         "amount": amount * 100, 
 //         "currency": "INR",
-//         "name": "ABC Children's Conclave 2026",
+//         "name": "ABC Children’s Conclave",
 //         "description": `${regType} Registration`,
 //         "handler": function (response){
 //             registerBackend(response.razorpay_payment_id, regType, amount);
@@ -174,25 +205,62 @@ function generateRegId(email) {
 
 
 
+function calculateCurrentPrice() {
+    const delType = document.getElementById('reg-delegate-type')?.value || 'Standard';
+    const hasCme = document.getElementById('reg-cme')?.checked || false;
+
+    const now = new Date();
+    let confPrice = 2000;
+    let cmePrice = 1000;
+
+    if (now <= new Date('2026-03-14')) {
+        confPrice = 2000;
+        cmePrice = 1000;
+    } else if (now <= new Date('2026-04-14')) {
+        confPrice = (delType === 'PGT') ? 2000 : 3000;
+        cmePrice = 1000;
+    } else if (now <= new Date('2026-05-05')) {
+        confPrice = (delType === 'PGT') ? 3000 : 4000;
+        cmePrice = 1000;
+    } else {
+        confPrice = (delType === 'PGT') ? 5000 : 6000;
+        cmePrice = 2000;
+    }
+
+    let total = confPrice;
+    if (hasCme) total += cmePrice;
+    return { total, confPrice, cmePrice, delType, hasCme };
+}
+
 function payAndRegister() {
     const name = document.getElementById('reg-name').value;
     const email = document.getElementById('reg-email').value;
     const phone = document.getElementById('reg-phone').value;
-    const amount = document.getElementById('reg-category').value;
+    const institution = document.getElementById('reg-institution').value;
+    const city = document.getElementById('reg-city').value;
     const pass = document.getElementById('reg-password').value;
+    const hasCme = document.getElementById('reg-cme').checked;
+    const cmeChoice = document.getElementById('reg-cme-choice').value;
 
-    if (!name || !email || !phone || !pass || !amount) {
-        return alert("Please fill all fields");
+    if (!name || !email || !phone || !institution || !city || !pass) {
+        return alert("Please fill all required fields and password.");
     }
 
-    let regType = 'Standard';
-    if (amount == '2500') regType = 'Early Bird';
-    else if (amount == '3500') regType = 'Standard';
-    else if (amount == '5000') regType = 'Premium';
-    else if (amount == '8000') regType = 'VIP Delegate';
+    if (hasCme && !cmeChoice) {
+        return alert("Please select which CME session you would like to attend.");
+    }
+
+    const priceData = calculateCurrentPrice();
+    const regType = `${priceData.delType}${hasCme ? ' + ' + cmeChoice : ''}`;
 
     // 🚀 Payment Bypass for Testing
-    registerBackend("TEST_PAYMENT", regType, amount);
+    registerBackend("TEST_PAYMENT", regType, priceData.total, {
+        delType: priceData.delType,
+        institution: institution,
+        city: city,
+        hasCme: hasCme,
+        cmeChoice: hasCme ? cmeChoice : 'None'
+    });
 }
 
 
@@ -201,7 +269,7 @@ function payAndRegister() {
 
 
 
-function registerBackend(paymentId, regType, amount) {
+function registerBackend(paymentId, regType, amount, extra) {
     showLoader(true);
 
     const data = {
@@ -212,7 +280,8 @@ function registerBackend(paymentId, regType, amount) {
         password: document.getElementById('reg-password').value,
         amount: amount,
         regType: regType,
-        paymentId: paymentId
+        paymentId: paymentId,
+        ...extra
     };
 
     fetch(API_URL, {
@@ -560,8 +629,40 @@ function deleteFile(fileId) {
 }
 
 // =====================
-// INITIALIZATION
+// COUNTDOWN TIMER
 // =====================
+function initCountdown(targetDate) {
+    const countdownDate = new Date(targetDate).getTime();
+
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        if (distance < 0) {
+            const container = document.querySelector('.countdown-container');
+            if (container) container.style.display = 'none';
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
+        if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
+        if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
+    };
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+}
 
 // Check authentication on page load
 if (typeof window !== 'undefined') {
