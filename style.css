@@ -1971,7 +1971,7 @@ a {
     background: var(--white);
     border-radius: 8px;
     padding: 20px;
-    text-align: left;
+    text-align: center;
     box-shadow: var(--shadow-soft);
     border-left: 4px solid var(--cool-grey);
     transition: all 0.3s ease;
