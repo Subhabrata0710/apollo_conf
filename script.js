@@ -221,15 +221,15 @@ function calculateCurrentPrice() {
     const hasCme = document.getElementById('reg-cme')?.checked || false;
 
     const now = new Date();
-    // let confPrice = 2000;
-    // let cmePrice = 1000;
-    let confPrice = 1;
-    let cmePrice = 1;
+    let confPrice = 2000;
+    let cmePrice = 1000;
+    // let confPrice = 1;
+    // let cmePrice = 1;
     if (now <= new Date('2026-03-14')) {
-        // confPrice = 2000;
-        // cmePrice = 1000;
-        confPrice = 0.5;
-        cmePrice = 0.5;
+        confPrice = 2000;
+        cmePrice = 1000;
+        // confPrice = 0.5;
+        // cmePrice = 0.5;
     } else if (now <= new Date('2026-04-14')) {
         confPrice = (delType === 'PGT') ? 2000 : 3000;
         cmePrice = 1000;
