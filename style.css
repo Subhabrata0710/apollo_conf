@@ -222,6 +222,17 @@ a {
     margin-top: 60px;
 }
 
+.cme-marquee {
+    background: var(--apollo-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 60px;
+}
+
 /* =====================
    HERO SECTION - LUXURY
 ===================== */
@@ -910,7 +921,6 @@ a {
     background: linear-gradient(135deg, var(--navy-deep) 0%, var(--apollo-blue) 100%);
     padding: 120px 40px 80px;
     text-align: center;
-    margin-top: 60px;
 }
 
 .page-banner h2 {

@@ -1,7 +1,7 @@
 // ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
-const API_URL = "https://script.google.com/macros/s/AKfycbyyS2yXUN91qYntYeWCVAD0xc_5WOfsUZrX_XBXZ1TzeuHepIW5yqJXLrYiWBE7kXFL/exec";
-const RZP_KEY = "rzp_test_SHEpE6CgtOC7U5";
+const API_URL = "https://script.google.com/macros/s/AKfycbxaT9-VeftV0IX20vTeF7195UhA1PVAbn9XxxnBD8jEepyP3urQfYHivtv8cjQCC0tU/exec";
+const RZP_KEY = "rzp_live_SLF3GydGrlOos3";
 
 let currentUser = null;
 
@@ -155,50 +155,61 @@ function generateRegId(email) {
 // =====================
 
 // Payment & Registration (Updated for 4 pricing tiers)
-// function payAndRegister() {
-//     const name = document.getElementById('reg-name').value;
-//     const email = document.getElementById('reg-email').value;
-//     const phone = document.getElementById('reg-phone').value;
-//     const amount = document.getElementById('reg-category').value;
-//     const pass = document.getElementById('reg-password').value;
+function payAndRegister() {
+    const name = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const phone = document.getElementById('reg-phone').value;
+    const institution = document.getElementById('reg-institution').value;
+    const city = document.getElementById('reg-city').value;
+    const pass = document.getElementById('reg-password').value;
+    const hasCme = document.getElementById('reg-cme').checked;
+    const cmeChoice = document.getElementById('reg-cme-choice').value;
 
-//     if(!name || !email || !phone || !pass || !amount) {
-//         return alert("Please fill all fields");
-//     }
+    if (!name || !email || !phone || !institution || !city || !pass) {
+        return alert("Please fill all required fields and password.");
+    }
 
-//     // Determine registration type based on amount
-//     let regType = 'Standard';
-//     if (amount == '2500') regType = 'Early Bird';
-//     else if (amount == '3500') regType = 'Standard';
-//     else if (amount == '5000') regType = 'Premium';
-//     else if (amount == '8000') regType = 'VIP Delegate';
-// ////////////////////////////////////////////////// PROD PAYMENT/////////////////////////////
-//     var options = {
-//         "key": RZP_KEY,
-//         "amount": amount * 100, 
-//         "currency": "INR",
-//         "name": "ABC Children’s Conclave",
-//         "description": `${regType} Registration`,
-//         "handler": function (response){
-//             registerBackend(response.razorpay_payment_id, regType, amount);
-//         },
-//         "prefill": { 
-//             "name": name, 
-//             "email": email, 
-//             "contact": phone 
-//         },
-//         "theme": {
-//             "color": "#003A8C"
-//         }
-//     };
+    if (hasCme && !cmeChoice) {
+        return alert("Please select which CME session you would like to attend.");
+    }
 
-//     // Open Razorpay
-//     var rzp1 = new Razorpay(options);
-//     rzp1.on('payment.failed', function (response){
-//         alert("Payment Failed: " + response.error.description);
-//     });
-//     rzp1.open();
-// }
+    const priceData = calculateCurrentPrice();
+    const regType = `${priceData.delType}${hasCme ? ' + ' + cmeChoice : ''}`;
+    const amount = priceData.total;
+
+    ////////////////////////////////////////////////// PROD PAYMENT/////////////////////////////
+    var options = {
+        "key": RZP_KEY,
+        "amount": amount * 100,
+        "currency": "INR",
+        "name": "ABC Children’s Conclave",
+        "description": `${regType} Registration`,
+        "handler": function (response) {
+            registerBackend(response.razorpay_payment_id, regType, amount, {
+                delType: priceData.delType,
+                institution: institution,
+                city: city,
+                hasCme: hasCme,
+                cmeChoice: hasCme ? cmeChoice : 'None'
+            });
+        },
+        "prefill": {
+            "name": name,
+            "email": email,
+            "contact": phone
+        },
+        "theme": {
+            "color": "#003A8C"
+        }
+    };
+
+    // Open Razorpay
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+        alert("Payment Failed: " + response.error.description);
+    });
+    rzp1.open();
+}
 
 
 
@@ -232,36 +243,36 @@ function calculateCurrentPrice() {
     return { total, confPrice, cmePrice, delType, hasCme };
 }
 
-function payAndRegister() {
-    const name = document.getElementById('reg-name').value;
-    const email = document.getElementById('reg-email').value;
-    const phone = document.getElementById('reg-phone').value;
-    const institution = document.getElementById('reg-institution').value;
-    const city = document.getElementById('reg-city').value;
-    const pass = document.getElementById('reg-password').value;
-    const hasCme = document.getElementById('reg-cme').checked;
-    const cmeChoice = document.getElementById('reg-cme-choice').value;
+// function payAndRegister() {
+//     const name = document.getElementById('reg-name').value;
+//     const email = document.getElementById('reg-email').value;
+//     const phone = document.getElementById('reg-phone').value;
+//     const institution = document.getElementById('reg-institution').value;
+//     const city = document.getElementById('reg-city').value;
+//     const pass = document.getElementById('reg-password').value;
+//     const hasCme = document.getElementById('reg-cme').checked;
+//     const cmeChoice = document.getElementById('reg-cme-choice').value;
 
-    if (!name || !email || !phone || !institution || !city || !pass) {
-        return alert("Please fill all required fields and password.");
-    }
+//     if (!name || !email || !phone || !institution || !city || !pass) {
+//         return alert("Please fill all required fields and password.");
+//     }
+//////////////////test payment////////////
+//     if (hasCme && !cmeChoice) {
+//         return alert("Please select which CME session you would like to attend.");
+//     }
 
-    if (hasCme && !cmeChoice) {
-        return alert("Please select which CME session you would like to attend.");
-    }
+//     const priceData = calculateCurrentPrice();
+//     const regType = `${priceData.delType}${hasCme ? ' + ' + cmeChoice : ''}`;
 
-    const priceData = calculateCurrentPrice();
-    const regType = `${priceData.delType}${hasCme ? ' + ' + cmeChoice : ''}`;
-
-    // 🚀 Payment Bypass for Testing
-    registerBackend("TEST_PAYMENT", regType, priceData.total, {
-        delType: priceData.delType,
-        institution: institution,
-        city: city,
-        hasCme: hasCme,
-        cmeChoice: hasCme ? cmeChoice : 'None'
-    });
-}
+//     // 🚀 Payment Bypass for Testing
+//     registerBackend("TEST_PAYMENT", regType, priceData.total, {
+//         delType: priceData.delType,
+//         institution: institution,
+//         city: city,
+//         hasCme: hasCme,
+//         cmeChoice: hasCme ? cmeChoice : 'None'
+//     });
+// }
 
 
 
