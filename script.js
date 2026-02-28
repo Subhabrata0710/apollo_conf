@@ -684,3 +684,26 @@ if (typeof window !== 'undefined') {
         checkAuth();
     });
 }
+
+// program schedule
+
+const tabs = document.querySelectorAll('.tab-btn');
+const timelines = document.querySelectorAll('.program-timeline');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+
+        const day = tab.getAttribute('data-day');
+
+        // remove active from all buttons
+        tabs.forEach(btn => btn.classList.remove('active'));
+        tab.classList.add('active');
+
+        // hide all timelines
+        timelines.forEach(tl => tl.classList.remove('active'));
+
+        // show selected timeline
+        document.querySelector('.program-timeline[data-day="' + day + '"]')
+            .classList.add('active');
+    });
+});

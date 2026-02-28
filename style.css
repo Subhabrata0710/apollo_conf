@@ -686,6 +686,11 @@ a {
 .program-timeline {
     max-width: 900px;
     margin: 0 auto;
+    display: none;
+}
+
+.program-timeline.active {
+    display: block;
 }
 
 .timeline-item {
