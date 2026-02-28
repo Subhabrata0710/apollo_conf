@@ -176,7 +176,16 @@ function payAndRegister() {
     const priceData = calculateCurrentPrice();
     const regType = `${priceData.delType}${hasCme ? ' + ' + cmeChoice : ''}`;
     const amount = priceData.total;
-
+    if (amount === 0) {
+        registerBackend("FREE_REGISTRATION", regType, 0, {
+            delType: priceData.delType,
+            institution: institution,
+            city: city,
+            hasCme: hasCme,
+            cmeChoice: hasCme ? cmeChoice : 'None'
+        });
+        return;
+    }
     ////////////////////////////////////////////////// PROD PAYMENT/////////////////////////////
     var options = {
         "key": RZP_KEY,
@@ -225,6 +234,20 @@ function calculateCurrentPrice() {
     let cmePrice = 1000;
     // let confPrice = 1;
     // let cmePrice = 1;
+    if (delType === 'Senior') {
+        confPrice = 0;
+
+        // CME still chargeable
+        if (now > new Date('2026-05-05')) {
+            cmePrice = 2000;
+        } else {
+            cmePrice = 1000;
+        }
+
+        let total = hasCme ? cmePrice : 0;
+
+        return { total, confPrice, cmePrice, delType, hasCme };
+    }
     if (now <= new Date('2026-03-14')) {
         confPrice = 2000;
         cmePrice = 1000;
