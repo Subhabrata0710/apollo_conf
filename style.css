@@ -114,8 +114,9 @@ a {
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .nav-logo {
@@ -219,7 +220,7 @@ a {
     font-weight: 600;
     font-size: 1rem;
     letter-spacing: 1px;
-    margin-top: 60px;
+    /* margin-top: 60px; */
 }
 
 .cme-marquee {
@@ -1666,9 +1667,11 @@ a {
 .logos-bar {
     background: var(--white);
     padding: 40px 20px;
+    margin-top: 50px;
     border-bottom: 1px solid var(--cool-grey);
     box-shadow: var(--shadow-soft);
 }
+
 
 .logos-row {
     display: flex;
@@ -1684,11 +1687,16 @@ a {
     background: var(--cool-grey);
 }
 
-.logo-group {
+/* .logo-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+} */
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .logo-group-label {
@@ -1729,6 +1737,33 @@ a {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.5px;
     color: var(--white);
+}
+
+.logo-placeholder {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+.logo-placeholder img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+.logo-group-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    color: var(--navy-deep);
+    white-space: nowrap;
+}
+
+.logos-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .wbap-logo {
