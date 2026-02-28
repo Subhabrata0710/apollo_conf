@@ -2390,7 +2390,7 @@ a {
     .logo-group-label {
         order: 2;
         /* push label below */
-        font-size: 0.6rem;
+        font-size: 0.4rem;
         font-weight: 600;
         white-space: nowrap;
     }
