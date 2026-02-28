@@ -2410,6 +2410,9 @@ a {
 }
 
 @media (max-width: 768px) {
+    .top-bar {
+        font-size: 0.8rem;
+    }
 
     .container {
         padding-left: 16px;
