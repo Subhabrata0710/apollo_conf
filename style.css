@@ -304,9 +304,11 @@ a {
     letter-spacing: 2px;
     color: var(--soft-gold);
     margin-bottom: 20px;
-    padding: 8px 20px;
+    display: inline;
+    /* padding: 8px 20px;
     border: 1px solid var(--soft-gold);
     border-radius: 30px;
+ */
 }
 
 .hero h1 {
@@ -2401,9 +2403,9 @@ a {
     }
 
     .hero-top-logo {
-        width: 50px;
-        top: 15px;
-        right: 20px;
+        width: 150px;
+        top: 40px;
+        right: 100px;
     }
 }
 
@@ -2540,23 +2542,35 @@ a {
         display: none;
     }
 
+
     .pricing-table-container {
         padding: 0;
-        overflow-x: auto;
+        /* overflow-x: auto; */
         -webkit-overflow-scrolling: touch;
+        overflow-x: visible;
+        /* remove horizontal scroll */
     }
 
     .pricing-table {
-        min-width: 600px;
+        /* min-width: 600px; */
         /* prevents squishing */
-        font-size: 0.9rem;
+        /* font-size: 0.9rem;
+        min-width: 650px;
+        border-collapse: collapse; */
+        width: 100%;
+        font-size: 0.85rem;
+        table-layout: fixed;
     }
 
     .pricing-table th,
     .pricing-table td {
-        padding: 12px;
-        white-space: nowrap;
+        padding: 10px 6px;
+        white-space: normal;
+        /* allow text wrapping */
+        word-break: break-word;
     }
+
+    /* ===== MOBILE TABLE FIX ===== */
 
     .register-card {
         padding: 20px;
