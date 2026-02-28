@@ -298,7 +298,7 @@ a {
 
 .hero-tagline {
     display: inline-block;
-    font-size: 0.85rem;
+    font-size: 1 rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
