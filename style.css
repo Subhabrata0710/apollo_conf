@@ -2333,6 +2333,15 @@ a {
     font-size: 0.78rem;
 }
 
+/* Default (Desktop First Approach) */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
 /* =====================
    RESPONSIVE – NEW COMPONENTS
 ===================== */
@@ -2435,4 +2444,87 @@ a {
         display: none;
     }
 
+    .mobile-only {
+        display: block;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .mobile-only img {
+        max-width: 600px;
+        /* control size */
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .pricing-table-container {
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pricing-table {
+        min-width: 600px;
+        /* prevents squishing */
+        font-size: 0.9rem;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+        padding: 12px;
+        white-space: nowrap;
+    }
+
+    .register-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .total-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 16px;
+    }
+
+    .total-value {
+        font-size: 1.4rem;
+    }
+
+    .btn-primary {
+        padding: 16px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    body {
+        background: #f8fafc;
+    }
+
+    .register-section {
+        padding-top: 20px;
+    }
+
+    .line-break-mobile {
+        display: block;
+        /* forces new line */
+        margin-top: 0.2em;
+        /* optional spacing */
+    }
 }

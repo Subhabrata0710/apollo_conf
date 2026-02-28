@@ -40,7 +40,7 @@
                 <span></span>
             </div>
 
-            <div class="nav-links" id="navMenu">
+            <div class="nav-links" id="navMenu" id="moreDropdown">
                 <a href="index.html" class="active">Home</a>
                 <a href="about.html">About</a>
                 <a href="committee.html">Committee</a>
@@ -48,7 +48,7 @@
                 <a href="register.html">Register</a>
                 <a href="login.html">Login</a>
                 <div class="nav-item">
-                    <a href="#">More ▾</a>
+                    <a href="#" class="more-link">More ▾</a>
                     <div class="dropdown">
                         <a href="program.html">Program</a>
                         <a href="venue.html">Venue</a>
@@ -62,112 +62,73 @@
     <!-- PARTNER LOGOS BAR -->
     <section class="logos-bar">
         <div class="container">
-            <div class="logos-row">
+            <!-- MOBILE LOGO ONLY -->
+            <div class="mobile-only">
+                <img src="images/mobile_logo.png" alt="ABC Children’s Conclave">
+            </div>
+            <div class="logos-row desktop-only">
 
-                <div class="logo-group">
-                    <span class="logo-group-label">Co-Host</span>
-                    <div class="logo-group-items">
-                        <div class="logo-badge">
-                            <div class="logo-placeholder wbap-ph">
-                                <!-- <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
-                                    <rect width="80" height="80" rx="12" fill="#1a6b3a" />
-                                    <text x="40" y="30" font-family="Montserrat,sans-serif" font-size="10"
-                                        font-weight="800" fill="#fff" text-anchor="middle">WBAP</text>
-                                    <text x="40" y="45" font-family="Montserrat,sans-serif" font-size="7"
-                                        fill="rgba(255,255,255,0.8)" text-anchor="middle">West Bengal</text>
-                                    <text x="40" y="56" font-family="Montserrat,sans-serif" font-size="7"
-                                        fill="rgba(255,255,255,0.8)" text-anchor="middle">Academy of</text>
-                                    <text x="40" y="67" font-family="Montserrat,sans-serif" font-size="7"
-                                        fill="rgba(255,255,255,0.8)" text-anchor="middle">Pediatrics</text>
-                                </svg> -->
-                                <img src="images/wbap-logo.png" alt="West Bengal Academy of Pediatrics">
+                <div class="logos-row">
+                    <div class="logo-group">
+                        <span class="logo-group-label">Co-Host</span>
+                        <div class="logo-group-items">
+                            <div class="logo-badge">
+                                <div class="logo-placeholder wbap-ph">
+                                    <img src="images/wbap-logo.png" alt="West Bengal Academy of Pediatrics">
+                                </div>
+                                <span>West Bengal Academy<br>of Pediatrics</span>
                             </div>
-                            <span>West Bengal Academy<br>of Pediatrics</span>
+                        </div>
+                    </div>
+
+                    <div class="logos-divider"></div>
+
+                    <div class="logo-group">
+                        <span class="logo-group-label">In Collaboration with</span>
+                        <div class="logo-group-items">
+                            <div class="logo-badge">
+                                <div class="logo-placeholder bch-ph">
+                                    <img src="images/bch-logo.png" alt="Boston Children's Hospital, USA">
+                                </div>
+                                <span>Boston Children's<br>Hospital, USA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="logos-divider"></div>
+
+                    <div class="logo-group">
+                        <span class="logo-group-label">Organized by</span>
+                        <div class="logo-group-items">
+                            <div class="logo-badge">
+                                <div class="logo-placeholder abc-ph">
+                                    <img src="images/abc-logo.png" alt="ABC Children’s Conclave">
+                                </div>
+                                <span>Apollo Boston Children’s Conclave<br>2026</span>
+                            </div>
+                            <div class="logo-badge">
+                                <div class="logo-placeholder apollo-ph">
+                                    <img src="images/apollo-logo.png" alt="Apollo Children's Hospital, Kolkata">
+                                </div>
+                                <span>Apollo Children's<br>Hospital, Kolkata</span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
-                <div class="logos-divider"></div>
 
-                <div class="logo-group">
-                    <span class="logo-group-label">In Collaboration with</span>
-                    <div class="logo-group-items">
-                        <div class="logo-badge">
-                            <div class="logo-placeholder bch-ph">
-                                <!-- <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
-                                    <rect width="80" height="80" rx="12" fill="#003A8C" />
-                                    <circle cx="40" cy="28" r="12" fill="none" stroke="#fff" stroke-width="2" />
-                                    <text x="40" y="33" font-family="Montserrat,sans-serif" font-size="11"
-                                        font-weight="800" fill="#fff" text-anchor="middle">BCH</text>
-                                    <text x="40" y="52" font-family="Montserrat,sans-serif" font-size="6.5"
-                                        fill="rgba(255,255,255,0.9)" text-anchor="middle">Boston Children's</text>
-                                    <text x="40" y="63" font-family="Montserrat,sans-serif" font-size="6.5"
-                                        fill="rgba(255,255,255,0.9)" text-anchor="middle">Hospital, USA</text>
-                                    <text x="40" y="73" font-family="Montserrat,sans-serif" font-size="5.5"
-                                        fill="rgba(255,255,255,0.6)" text-anchor="middle">Until every child is
-                                        well</text>
-                                </svg> -->
-                                <img src="images/bch-logo.png" alt="Boston Children's Hospital, USA">
-                            </div>
-                            <span>Boston Children's<br>Hospital, USA</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="logos-divider"></div>
-
-                <div class="logo-group">
-                    <span class="logo-group-label">Organized by</span>
-                    <div class="logo-group-items">
-                        <div class="logo-badge">
-                            <div class="logo-placeholder abc-ph">
-                                <!-- <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
-                                    <rect width="80" height="80" rx="12" fill="#0B1F3A" />
-                                    <text x="40" y="28" font-family="Montserrat,sans-serif" font-size="18"
-                                        font-weight="800" fill="#C8A951" text-anchor="middle">ABC</text>
-                                    <text x="40" y="44" font-family="Montserrat,sans-serif" font-size="6.5" fill="#fff"
-                                        text-anchor="middle">Apollo Boston</text>
-                                    <text x="40" y="55" font-family="Montserrat,sans-serif" font-size="6.5" fill="#fff"
-                                        text-anchor="middle">Children's</text>
-                                    <text x="40" y="66" font-family="Montserrat,sans-serif" font-size="6.5"
-                                        fill="#C8A951" text-anchor="middle">CONCLAVE</text>
-                                    <text x="40" y="76" font-family="Montserrat,sans-serif" font-size="6"
-                                        fill="rgba(200,169,81,0.7)" text-anchor="middle">2026</text>
-                                </svg> -->
-                                <img src="images/abc-logo.png" alt="ABC Children’s Conclave">
-                            </div>
-                            <span>Apollo Boston Children’s Conclave<br>2026</span>
-                        </div>
-                        <div class="logo-badge">
-                            <div class="logo-placeholder apollo-ph">
-                                <!-- <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
-                                    <rect width="80" height="80" rx="12" fill="#C8A951" />
-                                    <text x="40" y="35" font-family="Montserrat,sans-serif" font-size="22"
-                                        font-weight="800" fill="#0B1F3A" text-anchor="middle">A</text>
-                                    <text x="40" y="52" font-family="Montserrat,sans-serif" font-size="7"
-                                        font-weight="700" fill="#0B1F3A" text-anchor="middle">APOLLO</text>
-                                    <text x="40" y="63" font-family="Montserrat,sans-serif" font-size="6" fill="#0B1F3A"
-                                        text-anchor="middle">Children's Hospital</text>
-                                    <text x="40" y="73" font-family="Montserrat,sans-serif" font-size="5.5"
-                                        fill="rgba(11,31,58,0.7)" text-anchor="middle">Kolkata</text>
-                                </svg> -->
-                                <img src="images/apollo-logo.png" alt="Apollo Children's Hospital, Kolkata">
-                            </div>
-                            <span>Apollo Children's<br>Hospital, Kolkata</span>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
-            <!-- <p class="logos-note">Replace placeholder logos with actual image files — see <code>images/</code> folder -->
-            </p>
         </div>
+        <!-- <p class="logos-note">Replace placeholder logos with actual image files — see <code>images/</code> folder
+            -->
     </section>
 
     <!-- TOP INFO BAR -->
     <div class="top-bar">
-        ABC CHILDREN’S CONCLAVE 08–10 MAY 2026 &nbsp;|&nbsp; HYATT REGENCY, KOLKATA &nbsp;
+        ABC CHILDREN’S CONCLAVE 08–10 MAY 2026 <span class="line-break-mobile">&nbsp;|&nbsp; HYATT REGENCY, KOLKATA
+            &nbsp;</span>
         <!-- |&nbsp;CME Sessions: 8th May 2026 -->
     </div>
     <marquee class="cme-marquee" scrollamount="15" direction="left" onmouseover="this.stop();"
@@ -178,7 +139,10 @@
     <section class="hero" id="home">
         <div class="hero-overlay">
             <div class="hero-content">
-                <span class="hero-tagline">Organized by Apollo Multispeciality Hospitals, Kolkata</span>
+                <span class="hero-tagline">Organized by <span class="line-break-mobile">Apollo Children's & <span
+                            class="line-break-mobile">Apollo
+                            Multispeciality Hospitals,
+                            Kolkata</span></span></span>
                 <!-- <h1>ABC Children’s Conclave<br>2026</h1> -->
                 <h1>ABC Children’s Conclave 2026</h1>
                 <!-- <p class="hero-subtitle" style="font-size:1.1rem; margin-top:-10px;">Apollo Boston Children's Conclave
@@ -221,9 +185,9 @@
                     <h3>A Premier International Pediatric Congress</h3>
                     <p>
                         We are delighted to announce the <strong>ABC Children’s Conclave </strong>, a prestigious
-                        international academic event jointly organized by
+                        international academic event organized by
                         <strong>Apollo Children's, Kolkata</strong>, in association with <strong>West Bengal Academy of
-                            Paediatrics</strong>and in collaboration with <strong>Boston Children's
+                            Paediatrics</strong> in collaboration with <strong>Boston Children's
                             Hospital, USA</strong>.
 
                     </p>
