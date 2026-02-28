@@ -259,6 +259,29 @@ a {
     max-width: 800px;
 }
 
+.hero-title-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* space between heading and logo */
+    justify-content: center;
+    /* center horizontally */
+    flex-wrap: wrap;
+    /* wrap on smaller screens */
+}
+
+.hero-title-logo h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    /* adjust as per your design */
+}
+
+.hero-logo {
+    max-height: 50px;
+    /* control logo height */
+    width: auto;
+}
+
 .hero-logos {
     display: flex;
     gap: 30px;
@@ -310,6 +333,16 @@ a {
     font-weight: 500;
     margin-bottom: 50px;
     letter-spacing: 1px;
+}
+
+.hero-top-logo {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    width: 70px;
+    /* smallest size */
+    height: auto;
+    z-index: 10;
 }
 
 /* Countdown Timer */
@@ -2342,10 +2375,54 @@ a {
     display: block;
 }
 
+.hero-logo-desktop,
+.hero-logo-mobile {
+    display: none;
+}
+
 /* =====================
    RESPONSIVE – NEW COMPONENTS
 ===================== */
+
+@media (min-width: 992px) {
+
+    .hero {
+        position: relative;
+    }
+
+    .hero-logo-desktop {
+        display: block;
+        position: absolute;
+        right: 8%;
+        top: 35%;
+        width: 180px;
+        /* adjust size */
+        opacity: 0.95;
+    }
+
+    .hero-top-logo {
+        width: 50px;
+        top: 15px;
+        right: 20px;
+    }
+}
+
 @media (max-width: 768px) {
+    .hero-title-logo {
+        justify-content: center;
+    }
+
+    .hero-title-logo h1 {
+        font-size: 1.8rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .hero-logo {
+        max-height: 40px;
+        margin-top: 10px;
+    }
+
     .logos-row {
         gap: 20px;
     }
@@ -2526,5 +2603,25 @@ a {
         /* forces new line */
         margin-top: 0.2em;
         /* optional spacing */
+    }
+}
+
+@media (max-width: 991px) {
+
+    .hero-logo-mobile {
+        display: inline-block;
+        width: 70px;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    .hero-logo-desktop {
+        display: none;
+    }
+
+    .hero-top-logo {
+        width: 50px;
+        top: 15px;
+        right: 20px;
     }
 }
