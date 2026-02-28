@@ -2410,6 +2410,12 @@ a {
 }
 
 @media (max-width: 768px) {
+
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
     .hero-title-logo {
         justify-content: center;
     }
@@ -2599,9 +2605,19 @@ a {
     }
 
     .btn-primary {
-        padding: 16px;
+        width: 100%;
+        padding: 18px;
         font-size: 1rem;
-        border-radius: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        display: block;
+        max-width: 100%;
+    }
+
+    .btn-primary:active {
+        transform: scale(0.98);
     }
 
     body {
