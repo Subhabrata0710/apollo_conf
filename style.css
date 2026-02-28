@@ -2416,6 +2416,17 @@ a {
         padding-right: 16px;
     }
 
+    .register-section {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .register-card {
+        margin: 20px 0;
+        padding: 22px;
+        border-radius: 14px;
+    }
+
     .hero-title-logo {
         justify-content: center;
     }
