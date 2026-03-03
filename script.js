@@ -1,6 +1,6 @@
 // ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
-const API_URL = "https://script.google.com/macros/s/AKfycbwZdx8qiUQJDt7OgYjeW293AzHG9mO8DEXaJVGeMU-gxCVtfrCXfadjvTLVmMfZ4IFd/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzA4SnqhGnWL_kyvAMoM8EyqPgxx9n4kj-PXEjxI8AjHJWvKmkVFMDdXxcfDZFw7kKE/exec";
 const RZP_KEY = "rzp_live_SLF3GydGrlOos3";
 
 let currentUser = null;
@@ -182,7 +182,7 @@ function payAndRegister() {
             institution: institution,
             city: city,
             hasCme: hasCme,
-            cmeChoice: hasCme ? cmeChoice : 'None'
+            cmeChoice: hasCme ? cmeChoice : ''
         });
         return;
     }
@@ -199,7 +199,7 @@ function payAndRegister() {
                 institution: institution,
                 city: city,
                 hasCme: hasCme,
-                cmeChoice: hasCme ? cmeChoice : 'None'
+                cmeChoice: hasCme ? cmeChoice : ''
             });
         },
         "prefill": {
