@@ -762,7 +762,12 @@ a {
 .timeline-speaker {
     font-size: 0.95rem;
     color: var(--light-grey);
-    font-style: italic;
+    font-style: normal;
+}
+
+.timeline-speaker strong {
+    color: #caecb3;
+    font-weight: 600;
 }
 
 /* =====================
