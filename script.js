@@ -9,20 +9,43 @@ let currentUser = null;
 // UNIVERSAL NAV INIT
 // =====================
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM Content Loaded - Initializing App");
+
     // Load Navigation
     const navPlaceholder = document.getElementById('navbar-placeholder');
     if (navPlaceholder) {
-        fetch('nav.html')
-            .then(response => response.text())
+        console.log("Found navbar placeholder, fetching nav.html...");
+        fetch('nav.html?v=' + Date.now())
+            .then(response => {
+                if (!response.ok) throw new Error('Nav Fetch Failed: ' + response.status);
+                return response.text();
+            })
             .then(data => {
                 navPlaceholder.innerHTML = data;
+                console.log("Nav loaded successfully");
                 initNavbar();
                 setActiveLink();
+            })
+            .catch(err => {
+                console.error("Error loading navigation:", err);
+                // Fallback or alert if critical
             });
     } else {
-        // If navbar is already in the DOM (legacy or static)
+        console.log("No navbar placeholder found, initializing static navbar if exists");
         initNavbar();
         setActiveLink();
+    }
+
+    // Load Footer
+    const footerPlaceholder = document.getElementById('footer-placeholder');
+    if (footerPlaceholder) {
+        fetch('footer.html?v=' + Date.now())
+            .then(response => response.text())
+            .then(data => {
+                footerPlaceholder.innerHTML = data;
+                console.log("Footer loaded successfully");
+            })
+            .catch(err => console.error("Error loading footer:", err));
     }
 
     function initNavbar() {
