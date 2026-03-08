@@ -763,41 +763,7 @@
     </section>
 
     <div id="footer-placeholder"></div>
-
-    <div id="footer-placeholder"></div>
-
-    <script>
-        window.addEventListener('scroll', function () {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
-        });
-        document.addEventListener("DOMContentLoaded", function () {
-            const burger = document.getElementById("burger");
-            const navMenu = document.getElementById("navMenu");
-            const moreDropdown = document.getElementById("moreDropdown");
-            if (burger && navMenu) {
-                burger.addEventListener("click", function () {
-                    navMenu.classList.toggle("open");
-                    burger.classList.toggle("active");
-                });
-                document.querySelectorAll('.nav-links > a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('open');
-                        burger.classList.remove('active');
-                    });
-                });
-                if (moreDropdown) {
-                    moreDropdown.querySelector('.more-link').addEventListener('click', function (e) {
-                        if (window.innerWidth <= 768) {
-                            e.preventDefault();
-                            moreDropdown.classList.toggle('open');
-                        }
-                    });
-                }
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
