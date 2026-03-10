@@ -1,6 +1,6 @@
 // ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
-const API_URL = "https://script.google.com/macros/s/AKfycbzA4SnqhGnWL_kyvAMoM8EyqPgxx9n4kj-PXEjxI8AjHJWvKmkVFMDdXxcfDZFw7kKE/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbziS-UDe3K6hOxoG-fM0IzMj9v4lqmfDt2FZSfRMwvt7f0ztnvslHDq5uPViHkgwhR-/exec";
 const RZP_KEY = "rzp_live_SLF3GydGrlOos3";
 
 let currentUser = null;
@@ -390,25 +390,42 @@ function registerBackend(paymentId, regType, amount, extra) {
         ...extra
     };
 
-    fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(data)
-    })
-        .then(res => res.json())
-        .then(data => {
-            showLoader(false);
-            if (data.success) {
-                alert("Registration Successful! Please login to access your dashboard.");
-                window.location.href = "login.html";
-            } else {
-                alert("Error: " + (data.message || "Registration failed"));
-            }
+    console.log("Attempting registration with data:", data);
+
+    // Simple fetch with one retry on network failure
+    const sendRequest = (retryCount = 0) => {
+        fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(data)
         })
-        .catch(error => {
-            showLoader(false);
-            console.error('Registration error:', error);
-            alert("Server Error. Please try again later.");
-        });
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                showLoader(false);
+                console.log("Registration response:", data);
+                if (data.success) {
+                    alert("Registration Successful! Please login to access your dashboard.");
+                    window.location.href = "login.html";
+                } else {
+                    alert("Error: " + (data.message || "Registration failed"));
+                    console.error("Registration failed:", data.message);
+                }
+            })
+            .catch(error => {
+                if (retryCount < 1) {
+                    console.warn("Registration failed, retrying...", error);
+                    setTimeout(() => sendRequest(retryCount + 1), 2000);
+                } else {
+                    showLoader(false);
+                    console.error('Registration final error:', error);
+                    alert("Server Error. Your payment was successful (ID: " + paymentId + "), but the registration failed to save. Please contact support with your payment ID.");
+                }
+            });
+    };
+
+    sendRequest();
 }
 
 // =====================
