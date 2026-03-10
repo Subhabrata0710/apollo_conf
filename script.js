@@ -301,7 +301,16 @@ function calculateCurrentPrice() {
     if (delType === 'Senior') {
         return {
             total: 0,
-            confPrice: 0.01,
+            confPrice: 0,
+            cmePrice: 0,
+            delType,
+            hasCme
+        };
+    }
+    if (delType === 'testing') {
+        return {
+            total: 0.1,
+            confPrice: 1,
             cmePrice: 0,
             delType,
             hasCme
