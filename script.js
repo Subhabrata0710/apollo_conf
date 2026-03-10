@@ -300,7 +300,7 @@ function calculateCurrentPrice() {
     // let cmePrice = 1;
     if (delType === 'Senior') {
         return {
-            total: 0,
+            total: 0.1,
             confPrice: 0,
             cmePrice: 0,
             delType,
