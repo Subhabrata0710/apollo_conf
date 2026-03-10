@@ -308,13 +308,14 @@ function calculateCurrentPrice() {
         };
     }
     if (delType === 'testing') {
-        return {
-            total: 0.1,
-            confPrice: 1,
-            cmePrice: 0,
-            delType,
-            hasCme
-        };
+        confPrice = 0.01;
+        // return {
+        //     total: 0.1,
+        //     confPrice: 1,
+        //     cmePrice: 0,
+        //     delType,
+        //     hasCme
+        // };
     }
     if (now <= new Date('2026-03-14')) {
         confPrice = 2000;
