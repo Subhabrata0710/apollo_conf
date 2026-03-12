@@ -317,7 +317,7 @@ function calculateCurrentPrice() {
     //     //     hasCme
     //     // };
     // }
-    if (now <= new Date('2026-03-14')) {
+    if (now <= new Date('2026-03-15')) {
         confPrice = 2000;
         cmePrice = 1000;
         // confPrice = 0.5;
