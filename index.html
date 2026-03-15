@@ -312,9 +312,14 @@
     <div id="pdfModal" class="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
-            <h3>Scientific Program</h3>
-            <p>Your download will begin shortly. If it doesn't, please click the link below.</p>
-            <a href="images/abc_s.pdf" target="_blank" class="btn btn-primary" style="min-height: 60px;">Open PDF</a>
+            <div id="pdfContainer" style="width: 100%; height: 100%; min-height: 400px;">
+                <iframe id="pdfIframe" src="" width="100%" height="100%" style="border: none;"></iframe>
+            </div>
+            <div style="margin-top: 15px;">
+                <a href="images/abc_s.pdf" target="_blank" class="btn btn-primary"
+                    style="min-height: 50px; font-size: 0.8rem; padding: 10px 20px; min-width: 150px;">Open PDF
+                    Separately</a>
+            </div>
         </div>
     </div>
 

@@ -147,14 +147,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const downloadBtn = document.getElementById('download-btn-hero');
     const pdfModal = document.getElementById('pdfModal');
     const modalClose = document.querySelector('.modal-close');
+    const pdfIframe = document.getElementById('pdfIframe');
 
     if (downloadBtn && pdfModal) {
         downloadBtn.addEventListener('click', function (e) {
             // Check if mobile view
             if (window.innerWidth <= 768) {
                 e.preventDefault();
+                if (pdfIframe) pdfIframe.src = 'images/abc_s.pdf'; // Load PDF
                 pdfModal.style.display = 'flex';
-                console.log("Mobile view detected - opening modal");
+                console.log("Mobile view detected - opening embedded PDF modal");
             }
         });
 
@@ -162,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (modalClose) {
             modalClose.addEventListener('click', () => {
                 pdfModal.style.display = 'none';
+                if (pdfIframe) pdfIframe.src = ''; // Clear src
             });
         }
 
@@ -169,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.addEventListener('click', (e) => {
             if (e.target === pdfModal) {
                 pdfModal.style.display = 'none';
+                if (pdfIframe) pdfIframe.src = ''; // Clear src
             }
         });
     }

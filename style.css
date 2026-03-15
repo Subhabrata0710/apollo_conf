@@ -2697,15 +2697,18 @@ a {
 .modal-content {
     background-color: var(--white);
     margin: auto;
-    padding: 40px;
+    padding: 20px;
     border: 1px solid var(--soft-gold);
-    width: 90%;
-    max-width: 500px;
+    width: 95%;
+    max-width: 800px;
+    height: 85vh;
     border-radius: 12px;
     position: relative;
     text-align: center;
     box-shadow: var(--shadow-strong);
     animation: modalSlideIn 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
 }
 
 @keyframes modalSlideIn {
@@ -2723,26 +2726,23 @@ a {
 .modal-close {
     color: var(--text-grey);
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
+    top: 5px;
+    right: 15px;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
+    z-index: 10001;
 }
 
 .modal-close:hover {
     color: var(--apollo-blue);
 }
 
-.modal-content h3 {
-    color: var(--navy-deep);
-    margin-bottom: 15px;
-    font-size: 1.5rem;
-}
-
-.modal-content p {
-    margin-bottom: 25px;
-    font-size: 1rem;
-    color: var(--text-grey);
+#pdfContainer {
+    flex-grow: 1;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f0f0f0;
 }
