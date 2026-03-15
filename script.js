@@ -143,6 +143,17 @@ document.addEventListener("DOMContentLoaded", function () {
         initCountdown("May 8, 2026 00:00:00");
     }
 
+    // Cache Busting for Scientific Program PDF
+    const pdfPath = 'images/abc_s.pdf';
+    const timestamp = Date.now();
+    const bustedPdfPath = `${pdfPath}?v=${timestamp}`;
+
+    // Update all static links to the PDF
+    document.querySelectorAll(`a[href^="${pdfPath}"]`).forEach(link => {
+        link.href = bustedPdfPath;
+        console.log("Cache busted link:", link.href);
+    });
+
     // Mobile PDF Modal Logic
     const downloadBtn = document.getElementById('download-btn-hero');
     const pdfModal = document.getElementById('pdfModal');
@@ -154,9 +165,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Check if mobile view
             if (window.innerWidth <= 768) {
                 e.preventDefault();
-                if (pdfIframe) pdfIframe.src = 'images/abc_s.pdf'; // Load PDF
+                if (pdfIframe) pdfIframe.src = bustedPdfPath; // Load PDF with cache buster
                 pdfModal.style.display = 'flex';
-                console.log("Mobile view detected - opening embedded PDF modal");
+                console.log("Mobile view detected - opening embedded PDF modal with cache buster");
             }
         });
 
