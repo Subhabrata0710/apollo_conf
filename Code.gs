@@ -174,3 +174,77 @@ function getUserFiles(data) {
     return {success: false, message: "Error fetching files: " + e.toString()};
   }
 }
+
+// --- BACKGROUND PROCESSING ---
+
+/**
+ * Periodically checks for forwarded Razorpay emails to catch payments 
+ * that failed to register on the website due to technical glitches.
+ * 
+ * Set this to run on a Time-based Trigger (e.g., every 10 or 15 minutes).
+ */
+function processForwardedPayments() {
+  const sheet = getSheet('Users');
+  const lastRow = sheet.getLastRow();
+  
+  let existingPayments = [];
+  if (lastRow > 1) {
+    const values = sheet.getRange(2, 10, lastRow - 1, 1).getValues();
+    existingPayments = values.flat().filter(String);
+  }
+
+  // Setup a label to track processed emails
+  const labelName = "Conclave_Processed";
+  let label = GmailApp.getUserLabelByName(labelName);
+  if (!label) { 
+    label = GmailApp.createLabel(labelName); 
+  }
+
+  // Search for forwarded emails from Razorpay
+  // Note: Rohit's emails are forwarded, so we look for this specific subject
+  const threads = GmailApp.search('subject:"Razorpay | Payment successful for Abckol26" -label:' + labelName + ' newer_than:1d');
+  const now = new Date().getTime();
+
+  console.log(`Found ${threads.length} unprocessed payment threads.`);
+
+  threads.forEach(function(thread) {
+    const messages = thread.getMessages();
+    const latestMessage = messages[messages.length - 1]; 
+    const messageTime = latestMessage.getDate().getTime();
+
+    // Check if 5 minutes have passed since the email was received
+    // This gives the main system time to process the real-time registration first
+    if ((now - messageTime) >= (5 * 60 * 1000)) {
+      const body = latestMessage.getPlainBody();
+
+      // Extract customer email and payment ID
+      const emailMatch = body.match(/Customer Details[\s\S]*?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+      const paymentMatch = body.match(/pay_[A-Za-z0-9]+/);
+
+      if (emailMatch && paymentMatch) {
+        const customerEmail = emailMatch[1];
+        const paymentID = paymentMatch[0];
+
+        // If the Payment ID is NOT found in our Sheet
+        if (!existingPayments.includes(paymentID)) {
+          console.log(`Mismatch found! Payment ${paymentID} not in sheet for ${customerEmail}. Sending notification.`);
+          
+          const emailSubject = "Action Required: Registration Pending - ABC Children's Conclave 2026";
+          const emailBody = `Dear Delegate,\n\n` +
+                            `We have successfully received your payment (ID: ${paymentID}). However, your registration is currently pending in our system due to a technical glitch during the process.\n\n` +
+                            `Please contact our support team at apollobostonconclave2026@gmail.com with your payment ID to finalize your registration details.\n\n` +
+                            `Thank you for your patience.\n\n` +
+                            `Best Regards,\nEvent Support Team\nABC Children's Conclave 2026`;
+
+          GmailApp.sendEmail(customerEmail, emailSubject, emailBody, {
+            name: "ABC Conclave Support",
+            cc: "apollobostonconclave2026@gmail.com"
+          });
+        }
+      }
+      
+      // Mark the thread as processed regardless of whether an email was sent
+      thread.addLabel(label);
+    }
+  });
+}
