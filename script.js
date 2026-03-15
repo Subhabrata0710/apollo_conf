@@ -322,10 +322,10 @@ function calculateCurrentPrice() {
         cmePrice = 1000;
         // confPrice = 0.5;
         // cmePrice = 0.5;
-    } else if (now <= new Date('2026-04-14')) {
+    } else if (now <= new Date('2026-04-15')) {
         confPrice = (delType === 'PGT') ? 2000 : 3000;
         cmePrice = 1000;
-    } else if (now <= new Date('2026-05-05')) {
+    } else if (now <= new Date('2026-05-06')) {
         confPrice = (delType === 'PGT') ? 3000 : 4000;
         cmePrice = 1000;
     } else {
