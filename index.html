@@ -149,7 +149,7 @@
                 <div class="hero-buttons" style="display: flex; flex-direction: column; gap: 15px; width: fit-content;">
                     <div style="display: flex; flex-direction: row; gap: 10px; flex-wrap: wrap;">
                         <a href="register.html" class="btn btn-primary" data-testid="register-btn">Register Now</a>
-                        <a href='#images/abc_s.pdf' target="_blank" class="btn btn-outline"
+                        <a href='images/abc_s.pdf' target="_blank" class="btn btn-outline" id="download-btn-hero"
                             style="background-color:#003A8C; color:white;">
                             Download Scientific Program
                         </a>
@@ -307,6 +307,16 @@
     </section>
 
     <div id="footer-placeholder"></div>
+
+    <!-- MOBILE PDF MODAL -->
+    <div id="pdfModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3>Scientific Program</h3>
+            <p>Your download will begin shortly. If it doesn't, please click the link below.</p>
+            <a href="images/abc_s.pdf" target="_blank" class="btn btn-primary" style="min-height: 60px;">Open PDF</a>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

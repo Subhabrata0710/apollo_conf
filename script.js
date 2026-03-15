@@ -142,6 +142,36 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById('countdown')) {
         initCountdown("May 8, 2026 00:00:00");
     }
+
+    // Mobile PDF Modal Logic
+    const downloadBtn = document.getElementById('download-btn-hero');
+    const pdfModal = document.getElementById('pdfModal');
+    const modalClose = document.querySelector('.modal-close');
+
+    if (downloadBtn && pdfModal) {
+        downloadBtn.addEventListener('click', function (e) {
+            // Check if mobile view
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                pdfModal.style.display = 'flex';
+                console.log("Mobile view detected - opening modal");
+            }
+        });
+
+        // Close modal on X click
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                pdfModal.style.display = 'none';
+            });
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === pdfModal) {
+                pdfModal.style.display = 'none';
+            }
+        });
+    }
 });
 
 // =====================
