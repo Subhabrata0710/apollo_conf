@@ -71,8 +71,15 @@ function registerUser(data) {
 
     // Username Logic
     // users.length is safe here because we have the lock
-    let userType = data.amount >= 1000 ? "PREMIUM" : "STANDARD"; 
-    let prefix = userType === "PREMIUM" ? "ABC-K-P_" : "ABC-K-S_";
+    let prefix = "ABC-K-S_"; // Default
+    if (data.delType === "Alumni") {
+      prefix = "ABC-K-A_";
+    } else if (data.delType === "PGT") {
+      prefix = "ABC-K-P_";
+    } else if (data.amount >= 1000) {
+      prefix = "ABC-K-P_";
+    }
+
     let username = prefix + (1000 + users.length); 
 
     sheet.appendRow([
@@ -83,7 +90,7 @@ function registerUser(data) {
       data.institution, 
       data.city, 
       data.password, 
-      userType, 
+      data.delType || "Standard", 
       data.amount, 
       data.paymentId, 
       data.cmeChoice || "", 
@@ -92,7 +99,7 @@ function registerUser(data) {
 
     // Send email AFTER recording to sheet to ensure data is safe first
     try {
-      sendConfirmationEmail(data, username);
+      sendConfirmationEmail(data, username, data.delType || "Standard");
     } catch (emailError) {
       console.log("Email failed but registration saved: " + emailError.toString());
     }
@@ -107,19 +114,35 @@ function registerUser(data) {
   }
 }
 
-function sendConfirmationEmail(data, username) {
-  const subject = "Registration Confirmation - ABC Children's Conclave 2026";
-  const body = `Dear ${data.name},\n\n` + 
+function sendConfirmationEmail(data, username, delType) {
+  let subject = "Registration Confirmation - ABC Children's Conclave 2026";
+  let to = data.email;
+  let cc = "mukherjeerohit301@gmail.com,apollobostonconclave2026@gmail.com";
+  let body = `Dear ${data.name},\n\n` + 
                `Thank you for registering for the ABC Children's Conclave 2026.\n\n` +
                `Your registration details are as follows:\n` +
                `Registration ID: ${username}\n` +
                `Amount Paid: ₹${data.amount}\n\n` +
                `We look forward to welcoming you to the conclave!\n\n` +
                `Best Regards,\nConference Secretariat\nABC Children's Conclave`;
+
+  // Custom logic for Alumni
+  if (delType === "Alumni") {
+    subject = "Alumni Registration Confirmation - ABC Children's Conclave 2026";
+    // You can change 'to' or 'cc' here specifically for alumni
+    cc = "apollobostonconclave2026@gmail.com"; // Different CC for Alumni
+    body = `Dear ${data.name},\n\n` +
+           `Welcome back! As an Apollo Alumnus, we are delighted to have you join us for the ABC Children's Conclave 2026.\n\n` +
+           `Your alumni registration details:\n` +
+           `Registration ID: ${username}\n` +
+           `Amount Paid: ₹${data.amount}\n\n` +
+           `See you at the conclave!\n\n` +
+           `Best Regards,\nAlumni Coordination Team\nABC Children's Conclave`;
+  }
   
   MailApp.sendEmail({
-    to: data.email,
-    cc: "mukherjeerohit301@gmail.com,apollobostonconclave2026@gmail.com",
+    to: to,
+    cc: cc,
     subject: subject,
     body: body
   });
@@ -219,11 +242,12 @@ function processForwardedPayments() {
 
       // Extract customer email and payment ID
       const emailMatch = body.match(/Customer Details[\s\S]*?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
-      const paymentMatch = body.match(/pay_[A-Za-z0-9]+/);
+      // More flexible Regex for Payment Id (catches test IDs like paTeSTA and standard pay_...)
+      const paymentMatch = body.match(/Payment Id\s*[:\s]*([A-Za-z0-9_]+)/i);
 
       if (emailMatch && paymentMatch) {
         const customerEmail = emailMatch[1];
-        const paymentID = paymentMatch[0];
+        const paymentID = paymentMatch[1]; // Use index 1 for the captured group
 
         // If the Payment ID is NOT found in our Sheet
         if (!existingPayments.includes(paymentID)) {

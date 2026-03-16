@@ -1,6 +1,6 @@
 // ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
-const API_URL = "https://script.google.com/macros/s/AKfycbxOBXEFt9BCSWaap_MThhJHjp5sFVHA5N11C-r3xcBGzo7xmswQ_9YJSXtZR7hN2g_F/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyExbjEqNna_BDJuQWcFf7cSx81ws34TFjE-xlZFgUzK7N-o3IGaSCksVPObZ6Kqbqb/exec";
 const RZP_KEY = "rzp_live_SLF3GydGrlOos3";
 
 let currentUser = null;
