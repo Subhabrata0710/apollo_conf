@@ -39,13 +39,20 @@ function doPost(e) {
 // --- CORE FUNCTIONS ---
 
 function getSheet(name) {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  let sheet = ss.getSheetByName(name);
-  if (!sheet) {
-    sheet = ss.insertSheet(name);
-    // You might want to add headers here if it's a new sheet
+  try {
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    if (!ss) throw new Error("Could not open spreadsheet with ID: " + SHEET_ID);
+    
+    let sheet = ss.getSheetByName(name);
+    if (!sheet) {
+      sheet = ss.insertSheet(name);
+      console.log("Created new sheet: " + name);
+    }
+    return sheet;
+  } catch (error) {
+    console.log("Error in getSheet(" + name + "): " + error.toString());
+    return null;
   }
-  return sheet;
 }
 
 function registerUser(data) {
@@ -90,7 +97,7 @@ function registerUser(data) {
       data.institution, 
       data.city, 
       data.password, 
-      delType, 
+      data.delType, 
       data.amount, 
       data.paymentId, 
       data.cmeChoice || "", 
@@ -98,7 +105,7 @@ function registerUser(data) {
     ]);
 
     // PGT Approval File Handling
-    if (delType === "PGT" && data.pgtFile) {
+    if (data.delType === "PGT" && data.pgtFile) {
       try {
         const folder = DriveApp.getFolderById(UPLOAD_FOLDER_ID);
         const fileName = "PGT_Approval_" + username + "_" + data.pgtFile.fileName;
@@ -224,11 +231,17 @@ function getUserFiles(data) {
  */
 function processForwardedPayments() {
   const sheet = getSheet('Users');
+  if (!sheet) {
+    console.log("Error: Could not access 'Users' sheet in processForwardedPayments");
+    return;
+  }
+  
   const lastRow = sheet.getLastRow();
   
   let existingPayments = [];
   if (lastRow > 1) {
-    const values = sheet.getRange(2, 10, lastRow - 1, 1).getValues();
+    const range = sheet.getRange(2, 10, lastRow - 1, 1);
+    const values = range ? range.getValues() : [];
     existingPayments = values.flat().filter(String);
   }
 
