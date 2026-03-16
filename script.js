@@ -1,6 +1,6 @@
 // ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
-const API_URL = "https://script.google.com/macros/s/AKfycbyExbjEqNna_BDJuQWcFf7cSx81ws34TFjE-xlZFgUzK7N-o3IGaSCksVPObZ6Kqbqb/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbw6AkTfaId23xcKpoBjoS4_cIVf-aFVqeduHkTChZxZRlbIaZ-xGEeB7X_LL33i0uqU/exec";
 const RZP_KEY = "rzp_live_SLF3GydGrlOos3";
 
 let currentUser = null;
@@ -283,56 +283,91 @@ function payAndRegister() {
     }
 
     const priceData = calculateCurrentPrice();
-    const regType = `${priceData.delType}${hasCme ? ' + ' + cmeChoice : ''}`;
+    const delType = priceData.delType;
+    const regType = `${delType}${hasCme ? ' + ' + cmeChoice : ''}`;
     const amount = priceData.total;
-    if (amount === 0) {
-        registerBackend("FREE_REGISTRATION", regType, 0, {
-            delType: priceData.delType,
-            institution: institution,
-            city: city,
-            hasCme: hasCme,
-            cmeChoice: hasCme ? cmeChoice : ''
-        });
-        return;
+
+    // PGT APPROVAL FILE HANDLING
+    const fileInput = document.getElementById('pgt-letter');
+    let fileData = null;
+
+    if (delType === 'PGT') {
+        if (!fileInput || fileInput.files.length === 0) {
+            return alert("PGT registration requires an approval letter from your HoD. Please upload the file.");
+        }
+
+        const file = fileInput.files[0];
+        if (file.size > 5 * 1024 * 1024) { // 5MB limit
+            return alert("Approval letter size must be less than 5MB");
+        }
+
+        showLoader(true);
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            fileData = {
+                base64: e.target.result.split(',')[1],
+                fileName: file.name,
+                mimeType: file.type
+            };
+            proceedToPayment();
+        };
+        reader.onerror = function () {
+            showLoader(false);
+            alert("Failed to read the approval letter. Please try again.");
+        };
+        reader.readAsDataURL(file);
+    } else {
+        proceedToPayment();
     }
-    ////////////////////////////////////////////////// PROD PAYMENT/////////////////////////////
-    var options = {
-        "key": RZP_KEY,
-        "amount": amount * 100,
-        "currency": "INR",
-        "name": "ABC Children’s Conclave",
-        "description": `${regType} Registration`,
-        "handler": function (response) {
-            registerBackend(response.razorpay_payment_id, regType, amount, {
-                delType: priceData.delType,
+
+    function proceedToPayment() {
+        showLoader(false);
+        if (amount === 0) {
+            registerBackend("FREE_REGISTRATION", regType, 0, {
+                delType: delType,
                 institution: institution,
                 city: city,
                 hasCme: hasCme,
-                cmeChoice: hasCme ? cmeChoice : ''
+                cmeChoice: hasCme ? cmeChoice : '',
+                pgtFile: fileData
             });
-        },
-        "prefill": {
-            "name": name,
-            "email": email,
-            "contact": phone
-        },
-        "theme": {
-            "color": "#003A8C"
+            return;
         }
-    };
+        ////////////////////////////////////////////////// PROD PAYMENT/////////////////////////////
+        var options = {
+            "key": RZP_KEY,
+            "amount": amount * 100,
+            "currency": "INR",
+            "name": "ABC Children’s Conclave",
+            "description": `${regType} Registration`,
+            "handler": function (response) {
+                registerBackend(response.razorpay_payment_id, regType, amount, {
+                    delType: delType,
+                    institution: institution,
+                    city: city,
+                    hasCme: hasCme,
+                    cmeChoice: hasCme ? cmeChoice : '',
+                    pgtFile: fileData
+                });
+            },
+            "prefill": {
+                "name": name,
+                "email": email,
+                "contact": phone
+            },
+            "theme": {
+                "color": "#003A8C"
+            }
+        };
 
-    // Open Razorpay
-    var rzp1 = new Razorpay(options);
-    rzp1.on('payment.failed', function (response) {
-        alert("Payment Failed: " + response.error.description);
-    });
-    rzp1.open();
+        // Open Razorpay
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+            alert("Payment Failed: " + response.error.description);
+        });
+        rzp1.open();
+    }
 }
-
-
-
-
-
 
 function calculateCurrentPrice() {
     const delType = document.getElementById('reg-delegate-type')?.value || 'Standard';

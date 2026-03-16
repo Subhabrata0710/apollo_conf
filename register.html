@@ -54,35 +54,35 @@
                             <td>₹1,000</td>
                         </tr>
                         <!-- Tier 2 -->
-                        <tr>
+                        <tr class="tier-2">
                             <td rowspan="3">16th March – 14th April</td>
                             <td>Standard</td>
                             <td>₹3,000</td>
                             <td>₹1,000</td>
                         </tr>
-                        <tr>
+                        <tr class="tier-2">
                             <td>Apollo Alumni</td>
                             <td>₹2,000</td>
                             <td>₹1,000</td>
                         </tr>
-                        <tr>
+                        <tr class="tier-2">
                             <td>PGTs</td>
                             <td>₹2,000</td>
                             <td>₹1,000</td>
                         </tr>
                         <!-- Tier 3 -->
-                        <tr>
+                        <tr class="tier-3">
                             <td rowspan="3">15th April – 5th May</td>
                             <td>Standard</td>
                             <td>₹4,000</td>
                             <td>₹2,000</td>
                         </tr>
-                        <tr>
+                        <tr class="tier-3">
                             <td>Apollo Alumni</td>
                             <td>₹3,000</td>
                             <td>₹1,000</td>
                         </tr>
-                        <tr>
+                        <tr class="tier-3">
                             <td>PGTs</td>
                             <td>₹3,000</td>
                             <td>₹1,000</td>
@@ -157,13 +157,23 @@
 
                 <div class="form-group">
                     <label for="reg-delegate-type">Delegate Category *</label>
-                    <select id="reg-delegate-type" class="form-select" onchange="updateTotalAmount()">
+                    <select id="reg-delegate-type" class="form-select"
+                        onchange="updateTotalAmount(); togglePgtUpload();">
                         <option value="Standard">General Delegate</option>
                         <option value="PGT">Post Graduate Trainee (PGT)</option>
                         <option value="Senior">Senior IAP Member (Above 70 Years)</option>
                         <option value="Alumni">Apollo alumni members</option>
                         <!-- <option value="testing">test</option> -->
                     </select>
+                </div>
+
+                <!-- PGT APPROVAL UPLOAD -->
+                <div id="pgt-upload-group" class="form-group"
+                    style="display: none; margin-top: 15px; background: #fff8f8; padding: 15px; border-radius: 8px; border: 1px dashed #ffa5a5;">
+                    <label for="pgt-letter" style="color: #d32f2f;">PGT Approval Letter *</label>
+                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Please upload an approval letter
+                        from your Head of Department (HOD) in PDF or Image format.</p>
+                    <input type="file" id="pgt-letter" class="form-control" accept="image/*,application/pdf">
                 </div>
 
                 <div class="form-options">
@@ -238,6 +248,16 @@
             background: #f8fafc;
             font-weight: 600;
             color: var(--navy-deep);
+        }
+
+        .tier-2 td {
+            background: #f0f7ff;
+            color: #003A8C;
+        }
+
+        .tier-3 td {
+            background: #fff5f5;
+            color: #c53030;
         }
 
         .tier-spot td {
@@ -348,6 +368,11 @@
     </style>
 
     <script>
+        function togglePgtUpload() {
+            const delType = document.getElementById('reg-delegate-type').value;
+            const uploadGroup = document.getElementById('pgt-upload-group');
+            uploadGroup.style.display = (delType === 'PGT') ? 'block' : 'none';
+        }
         function toggleCmeChoice() {
             const hasCme = document.getElementById('reg-cme').checked;
             document.getElementById('cme-choice-group').style.display = hasCme ? 'block' : 'none';

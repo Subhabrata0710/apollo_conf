@@ -90,12 +90,28 @@ function registerUser(data) {
       data.institution, 
       data.city, 
       data.password, 
-      data.delType || "Standard", 
+      delType, 
       data.amount, 
       data.paymentId, 
       data.cmeChoice || "", 
       new Date()
     ]);
+
+    // PGT Approval File Handling
+    if (delType === "PGT" && data.pgtFile) {
+      try {
+        const folder = DriveApp.getFolderById(UPLOAD_FOLDER_ID);
+        const fileName = "PGT_Approval_" + username + "_" + data.pgtFile.fileName;
+        const blob = Utilities.newBlob(Utilities.base64Decode(data.pgtFile.base64), data.pgtFile.mimeType, fileName);
+        const file = folder.createFile(blob);
+        
+        const approvalSheet = getSheet('approvals');
+        approvalSheet.appendRow([username, data.name, data.email, file.getUrl(), new Date()]);
+        console.log("PGT Approval saved for " + username);
+      } catch (fileError) {
+        console.log("Failed to save PGT approval file: " + fileError.toString());
+      }
+    }
 
     // Send email AFTER recording to sheet to ensure data is safe first
     try {
@@ -128,16 +144,16 @@ function sendConfirmationEmail(data, username, delType) {
 
   // Custom logic for Alumni
   if (delType === "Alumni") {
-    subject = "Alumni Registration Confirmation - ABC Children's Conclave 2026";
+    subject = "Registration Confirmation - ABC Children's Conclave 2026";
     // You can change 'to' or 'cc' here specifically for alumni
-    cc = "apollobostonconclave2026@gmail.com"; // Different CC for Alumni
+    cc = "apollobostonconclave2026@gmail.com,mukherjeerohit301@gmail.com,apahari@yahoo.com,avishek_pd@rediffmail.com"; // Different CC for Alumni
     body = `Dear ${data.name},\n\n` +
-           `Welcome back! As an Apollo Alumnus, we are delighted to have you join us for the ABC Children's Conclave 2026.\n\n` +
+           `Welcome back! As an Apollo Alumnus, we are delighted to have you join us for the ABC Children's Conclave 2026. We have received your registration details.\n\n` +
            `Your alumni registration details:\n` +
-           `Registration ID: ${username}\n` +
-           `Amount Paid: ₹${data.amount}\n\n` +
+           `Registration ID: ${username}\n\n` +
+           `To Confirm your redistration please reach out to Dr. Amitava Pahari at apahari@yahoo.com or Dr. Avishek Poddar at avishek_pd@rediffmail.com\n\n` +
            `See you at the conclave!\n\n` +
-           `Best Regards,\nAlumni Coordination Team\nABC Children's Conclave`;
+           `Best Regards,\nEvent Support Team\nABC Children's Conclave 2026`;
   }
   
   MailApp.sendEmail({
@@ -242,12 +258,11 @@ function processForwardedPayments() {
 
       // Extract customer email and payment ID
       const emailMatch = body.match(/Customer Details[\s\S]*?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
-      // More flexible Regex for Payment Id (catches test IDs like paTeSTA and standard pay_...)
-      const paymentMatch = body.match(/Payment Id\s*[:\s]*([A-Za-z0-9_]+)/i);
+      const paymentMatch = body.match(/pay_[A-Za-z0-9]+/);
 
       if (emailMatch && paymentMatch) {
         const customerEmail = emailMatch[1];
-        const paymentID = paymentMatch[1]; // Use index 1 for the captured group
+        const paymentID = paymentMatch[0];
 
         // If the Payment ID is NOT found in our Sheet
         if (!existingPayments.includes(paymentID)) {
