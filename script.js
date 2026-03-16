@@ -371,11 +371,11 @@ function calculateCurrentPrice() {
         confPrice = (delType === 'PGT' || delType === 'Alumni') ? 2000 : 3000;
         cmePrice = 1000;
     } else if (now <= new Date('2026-05-06')) {
-        confPrice = (delType === 'PGT') ? 3000 : 4000;
-        cmePrice = 1000;
+        confPrice = (delType === 'PGT' || delType === 'Alumni') ? 3000 : 4000;
+        cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 1000 : 2000;
     } else {
-        confPrice = (delType === 'PGT') ? 5000 : 6000;
-        cmePrice = 2000;
+        confPrice = (delType === 'PGT' || delType === 'Alumni') ? 5000 : 6000;
+        cmePrice = 3000;
     }
 
     let total = confPrice;
