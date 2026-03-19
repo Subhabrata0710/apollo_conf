@@ -770,6 +770,36 @@ a {
     font-weight: 600;
 }
 
+/* Program Row Alignment */
+.program-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    align-items: flex-start;
+}
+
+.program-label {
+    min-width: 140px;
+    color: #caecb3;
+    font-weight: 600;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.program-names {
+    color: var(--light-grey);
+}
+
+@media (max-width: 600px) {
+    .program-row {
+        flex-direction: column;
+    }
+    .program-label {
+        min-width: auto;
+        margin-bottom: 2px;
+    }
+}
+
 /* =====================
    VENUE SECTION
 ===================== */
