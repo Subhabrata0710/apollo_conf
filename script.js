@@ -378,7 +378,7 @@ function calculateCurrentPrice() {
     let cmePrice = 1000;
     // let confPrice = 1;
     // let cmePrice = 1;
-    if (delType === 'Senior') {
+    if (delType === 'Senior' && (now <= new Date('2026-04-15'))) {
         return {
             total: 0,
             confPrice: 0,
