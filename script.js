@@ -1,6 +1,6 @@
 // ABC Children’s Conclave - Complete Script
 // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT DEPLOYMENT URL
-const API_URL = "https://script.google.com/macros/s/AKfycbwnOxzd0d2aSovjpfmWmVF_0sHhMdrLWxw5I79YdarQIk0DcPE10ZyCyxJTKYDI59FT/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzPnqk5zbLfpDq4xix1PvOTphyfZzTHI7gDAFKbC-wynFvaRwGd39kfrLiSQRzceFPx/exec";
 const RZP_KEY = "rzp_live_SLF3GydGrlOos3";
 
 let currentUser = null;
@@ -378,7 +378,7 @@ function calculateCurrentPrice() {
     let cmePrice = 1000;
     // let confPrice = 1;
     // let cmePrice = 1;
-    if (delType === 'Senior' && (now <= new Date('2026-04-15'))) {
+    if ((delType === 'Senior' || delType === 'WBAP') && (now <= new Date('2026-04-15'))) {
         return {
             total: 0,
             confPrice: 0,

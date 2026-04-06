@@ -81,6 +81,8 @@ function registerUser(data) {
     let prefix = "ABC-K-S_"; // Default
     if (data.delType === "Alumni") {
       prefix = "ABC-K-A_";
+    } else if (data.delType === "WBAP") {
+      prefix = "ABC-K-WB_";
     } else if (data.delType === "PGT") {
       prefix = "ABC-K-P_";
     } else if (data.amount >= 1000) {
@@ -145,6 +147,7 @@ function sendConfirmationEmail(data, username, delType) {
                `Thank you for registering for the ABC Children's Conclave 2026.\n\n` +
                `Your registration details are as follows:\n` +
                `Registration ID: ${username}\n` +
+               `Phone No: ${data.phone}\n` +
                `Amount Paid: ₹${data.amount}\n\n` +
                `We look forward to welcoming you to the conclave!\n\n` +
                `Best Regards,\nConference Secretariat\nABC Children's Conclave`;
@@ -157,12 +160,33 @@ function sendConfirmationEmail(data, username, delType) {
     body = `Dear ${data.name},\n\n` +
            `Welcome back! As an Apollo Alumnus, we are delighted to have you join us for the ABC Children's Conclave 2026. We have received your registration details.\n\n` +
            `Your alumni registration details:\n` +
-           `Registration ID: ${username}\n\n` +
-           `To Confirm your redistration please reach out to Dr. Amitava Pahari at apahari@yahoo.com or Dr. Avishek Poddar at avishek_pd@rediffmail.com\n\n` +
+           `Registration ID: ${username}\n` +
+            `Phone No: ${data.phone}\n` +
+           `Email: ${data.email}\n` +
+           `To Confirm your registration please reach out to Dr. Amitava Pahari at apahari@yahoo.com or Dr. Avishek Poddar at avishek_pd@rediffmail.com\n\n` +
            `See you at the conclave!\n\n` +
            `Best Regards,\nEvent Support Team\nABC Children's Conclave 2026`;
   }
   
+  if (delType === "WBAP") {
+  subject = "Registration Confirmation - ABC Children's Conclave 2026";
+  // You can change 'to' or 'cc' here specifically for alumni
+  cc = "apollobostonconclave2026@gmail.com,mukherjeerohit301@gmail.com,apahari@yahoo.com,avishek_pd@rediffmail.com,mailcb@gmail.com"; // Different CC for Alumni
+  body = `Dear ${data.name},\n\n` +
+          `Warm greetings from Apollo Children’s, Apollo Multispecialty Hospitals, Kolkata.\n` +
+          `We are pleased to inform you that your registration for the ABC Children’s Conclave 2026 has been successfully received under the WBAP EB/OB Member category.\n\n` +
+          `Your registration details:\n` +
+          `Registration ID: ${username}\n` +
+          `Phone No: ${data.phone}\n` +
+          `Email: ${data.email}\n\n` +
+          `To confirm your registration, kindly reach out to:\n`+
+          `Dr. Chandreyee Bhattacharya - mailcb@gmail.com\n` +
+          `Dr. Amitava Pahari – apahari@yahoo.com\n` +
+          `Dr. Avishek Poddar – avishek_pd@rediffmail.com\n\n` +
+          `We are delighted to have your participation and look forward to welcoming you to this academic gathering.\n\n` +
+          `See you at the conclave!\n\n` +
+          `Best Regards,\nEvent Support Team\nABC Children's Conclave 2026`;
+  }
   MailApp.sendEmail({
     to: to,
     cc: cc,
