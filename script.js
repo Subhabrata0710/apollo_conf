@@ -271,11 +271,16 @@ function payAndRegister() {
     const institution = document.getElementById('reg-institution').value;
     const city = document.getElementById('reg-city').value;
     const pass = document.getElementById('reg-password').value;
+    const hasConf = document.getElementById('reg-conf').checked;
     const hasCme = document.getElementById('reg-cme').checked;
     const cmeChoice = document.getElementById('reg-cme-choice').value;
 
     if (!name || !email || !phone || !institution || !city || !pass) {
         return alert("Please fill all required fields and password.");
+    }
+
+    if (!hasConf && !hasCme) {
+        return alert("Please select at least one option: Conference Registration or CME Registration.");
     }
 
     if (hasCme && !cmeChoice) {
@@ -284,7 +289,17 @@ function payAndRegister() {
 
     const priceData = calculateCurrentPrice();
     const delType = priceData.delType;
-    const regType = `${delType}${hasCme ? ' + ' + cmeChoice : ''}`;
+    
+    // Construct descriptive regType
+    let regType = delType;
+    if (hasConf && hasCme) {
+        regType += ` (Conf + ${cmeChoice})`;
+    } else if (hasConf) {
+        regType += ` (Conf Only)`;
+    } else if (hasCme) {
+        regType += ` (${cmeChoice} Only)`;
+    }
+
     const amount = priceData.total;
 
     // PGT APPROVAL FILE HANDLING
@@ -371,6 +386,7 @@ function payAndRegister() {
 
 function calculateCurrentPrice() {
     const delType = document.getElementById('reg-delegate-type')?.value || 'Standard';
+    const hasConf = document.getElementById('reg-conf')?.checked || false;
     const hasCme = document.getElementById('reg-cme')?.checked || false;
 
     const now = new Date();
@@ -384,6 +400,7 @@ function calculateCurrentPrice() {
             confPrice: 0,
             cmePrice: 0,
             delType,
+            hasConf,
             hasCme
         };
     }
@@ -397,14 +414,14 @@ function calculateCurrentPrice() {
     //     //     hasCme
     //     // };
     // }
-    if (now <= new Date('2026-03-16')) {
+    if (now <= new Date('2026-04-14')) {
         confPrice = 2000;
         cmePrice = 1000;
         // confPrice = 0.5;
         // cmePrice = 0.5;
-    } else if (now <= new Date('2026-04-15')) {
-        confPrice = (delType === 'PGT' || delType === 'Alumni') ? 2000 : 3000;
-        cmePrice = 1000;
+    } else if (now <= new Date('2026-04-26')) {
+        confPrice = (delType === 'PGT') ? 1000 : (delType === 'Alumni') ? 2000 : 3000;
+        cmePrice = (delType === 'PGT') ? 500 : 1000;
     } else if (now <= new Date('2026-05-06')) {
         confPrice = (delType === 'PGT' || delType === 'Alumni') ? 3000 : 4000;
         cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 1000 : 2000;
@@ -413,9 +430,10 @@ function calculateCurrentPrice() {
         cmePrice = 3000;
     }
 
-    let total = confPrice;
+    let total = 0;
+    if (hasConf) total += confPrice;
     if (hasCme) total += cmePrice;
-    return { total, confPrice, cmePrice, delType, hasCme };
+    return { total, confPrice, cmePrice, delType, hasConf, hasCme };
 }
 
 // function payAndRegister() {
