@@ -419,7 +419,7 @@ function calculateCurrentPrice() {
         cmePrice = 1000;
         // confPrice = 0.5;
         // cmePrice = 0.5;
-    } else if (now <= new Date('2026-04-26')) {
+    } else if (now <= new Date('2026-04-27')) {
         confPrice = (delType === 'PGT') ? 1000 : (delType === 'Alumni') ? 2000 : 3000;
         cmePrice = (delType === 'PGT') ? 500 : 1000;
     } else if (now <= new Date('2026-05-06')) {
