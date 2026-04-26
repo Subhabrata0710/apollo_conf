@@ -10,6 +10,7 @@ let currentUser = null;
 // =====================
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM Content Loaded - Initializing App");
+    checkAbstractClosure();
 
     // Load Navigation
     const navPlaceholder = document.getElementById('navbar-placeholder');
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Nav loaded successfully");
                 initNavbar();
                 setActiveLink();
+                checkAbstractClosure();
             })
             .catch(err => {
                 console.error("Error loading navigation:", err);
@@ -289,7 +291,7 @@ function payAndRegister() {
 
     const priceData = calculateCurrentPrice();
     const delType = priceData.delType;
-    
+
     // Construct descriptive regType
     let regType = delType;
     if (hasConf && hasCme) {
@@ -422,7 +424,7 @@ function calculateCurrentPrice() {
     } else if (now <= new Date('2026-04-27')) {
         confPrice = (delType === 'PGT') ? 1000 : (delType === 'Alumni') ? 2000 : 3000;
         cmePrice = (delType === 'PGT') ? 500 : 1000;
-    } else if (now <= new Date('2026-05-06')) {
+    } else if (now <= new Date('2026-05-07')) {
         confPrice = (delType === 'PGT' || delType === 'Alumni') ? 3000 : 4000;
         cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 1000 : 2000;
     } else {
@@ -914,3 +916,47 @@ tabs.forEach(tab => {
             .classList.add('active');
     });
 });
+
+/**
+ * Handles closure of abstract submission based on date
+ */
+function checkAbstractClosure() {
+    const now = new Date();
+    // Closure date: April 27th, 2026 (Midnight after April 26th)
+    const closureDate = new Date('2026-04-27T00:00:00');
+
+    if (now >= closureDate) {
+        // 1. Update Marquee Text (in all pages)
+        const marquees = document.querySelectorAll('.cme-marquee');
+        marquees.forEach(m => {
+            m.textContent = "10 CME Point approved by WBMC | Abstract subbmition is clossed";
+        });
+
+        // 2. Handle Login/Abstract Submission Page Specifics
+        if (window.location.pathname.includes('login.html')) {
+            alert("Abstract submittion is closed");
+
+            const loginBtn = document.querySelector('button[onclick="loginUser()"]') || document.querySelector('[data-testid="login-btn"]');
+            if (loginBtn) {
+                loginBtn.disabled = true;
+                loginBtn.textContent = "Abstract Submission Closed";
+                loginBtn.style.backgroundColor = "#888";
+                loginBtn.style.cursor = "not-allowed";
+                loginBtn.onclick = null;
+            }
+
+            // Disable inputs
+            const inputs = document.querySelectorAll('#login-email, #login-password');
+            inputs.forEach(input => {
+                input.disabled = true;
+                input.placeholder = "Submission Closed";
+            });
+        }
+
+        // 3. Handle Navbar Link (Comment out/Hide)
+        const abstractLink = document.querySelector('a[href="login.html"]');
+        if (abstractLink) {
+            abstractLink.style.display = 'none';
+        }
+    }
+}
