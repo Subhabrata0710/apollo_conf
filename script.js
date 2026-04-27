@@ -426,9 +426,9 @@ function calculateCurrentPrice() {
         cmePrice = (delType === 'PGT') ? 500 : 1000;
     } else if (now <= new Date('2026-05-07')) {
         confPrice = (delType === 'PGT' || delType === 'Alumni') ? 3000 : 4000;
-        cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 1000 : 2000;
+        cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 2000 : 2000;
     } else {
-        confPrice = (delType === 'PGT' || delType === 'Alumni') ? 5000 : 6000;
+        confPrice = (delType === 'PGT' || delType === 'Alumni') ? 5000 : 8000;
         cmePrice = 3000;
     }
 
@@ -929,7 +929,7 @@ function checkAbstractClosure() {
         // 1. Update Marquee Text (in all pages)
         const marquees = document.querySelectorAll('.cme-marquee');
         marquees.forEach(m => {
-            m.textContent = "10 CME Point approved by WBMC | Abstract Submission is closed";
+            m.textContent = "10 CME Point approved by WBMC | Abstract Submission is closed | CME 1 registration closed. Only few seats left for CME 2";
         });
 
         // 2. Handle Login/Abstract Submission Page Specifics
