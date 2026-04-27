@@ -929,7 +929,7 @@ function checkAbstractClosure() {
         // 1. Update Marquee Text (in all pages)
         const marquees = document.querySelectorAll('.cme-marquee');
         marquees.forEach(m => {
-            m.textContent = "10 CME Point approved by WBMC | Abstract subbmition is clossed";
+            m.textContent = "10 CME Point approved by WBMC | Abstract Submission is closed";
         });
 
         // 2. Handle Login/Abstract Submission Page Specifics
