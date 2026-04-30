@@ -426,7 +426,7 @@ function calculateCurrentPrice() {
         cmePrice = (delType === 'PGT') ? 500 : 1000;
     } else if (now <= new Date('2026-05-07')) {
         confPrice = (delType === 'PGT' || delType === 'Alumni') ? 3000 : 4000;
-        cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 2000 : 2000;
+        cmePrice = (delType === 'PGT' || delType === 'Alumni') ? 500 : 500;
     } else {
         confPrice = (delType === 'PGT' || delType === 'Alumni') ? 5000 : 8000;
         cmePrice = 3000;
