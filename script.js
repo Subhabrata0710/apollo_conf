@@ -953,10 +953,21 @@ function checkAbstractClosure() {
             });
         }
 
-        // 3. Handle Navbar Link (Comment out/Hide)
+        // 3. Handle Registration Page Specifics
+        if (window.location.pathname.includes('register.html')) {
+            alert("Registration is closed");
+            window.location.href = "flyer.html";
+        }
+
+        // 4. Handle Navbar Links (Hide closed links)
         const abstractLink = document.querySelector('a[href="login.html"]');
         if (abstractLink) {
             abstractLink.style.display = 'none';
+        }
+        
+        const registerLink = document.querySelector('a[href="register.html"]');
+        if (registerLink) {
+            registerLink.style.display = 'none';
         }
     }
 }
