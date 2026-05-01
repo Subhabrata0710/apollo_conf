@@ -929,7 +929,7 @@ function checkAbstractClosure() {
         // 1. Update Marquee Text (in all pages)
         const marquees = document.querySelectorAll('.cme-marquee');
         marquees.forEach(m => {
-            m.textContent = "10 CME Point approved by WBMC | Abstract Submission is closed | CME 1 registration closed. Only few seats left for CME 2";
+            m.textContent = "10 CME Point approved by WBMC | Abstract Submission is closed | Registrations Closed";
         });
 
         // 2. Handle Login/Abstract Submission Page Specifics
@@ -964,7 +964,7 @@ function checkAbstractClosure() {
         if (abstractLink) {
             abstractLink.style.display = 'none';
         }
-        
+
         const registerLink = document.querySelector('a[href="register.html"]');
         if (registerLink) {
             registerLink.style.display = 'none';
